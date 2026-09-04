@@ -44,6 +44,8 @@ export async function CreateResetEmail(
 export async function CreateRequestEmail(
     userEmail: string,
     movieName: string,
+    releaseYear: string,
+    description: string
 ) {
 
     const transporter = nodemailer.createTransport({
@@ -63,8 +65,66 @@ export async function CreateRequestEmail(
         subject: "Novo pedido de filme adicionado",
 
         html: `
-            <p>Solicitação para adicionar o filme ${movieName} ao catálogo</p>
-            <p>pedido feito por: ${userEmail}</p>
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+            <head>
+                <link href="https://googleapis.com" rel="stylesheet">
+            </head>
+        <body style="
+            font-family: Lato, sans-serif;
+            background-color: #5D3FD3;
+            padding: 20px;
+        ">
+            <div style="
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #ffff;
+                border-radius: 8px;
+            ">
+                <div style="
+                    border: 1px solid #ffffff;
+                    padding: 10px;
+                    box-sizing: border-box;
+                    border-radius: 15px 15px 0px 0px
+                ">
+                    <h1 style="font-size: 24px;">
+                        Nova solicitação de filme
+                    </h1>
+                    <p>
+                        Uma nova solicitação de filme foi recebida.
+                    </p>
+                </div>
+
+                <div style="
+                    border: 1px solid #ffffff;
+                    padding: 10px;
+                    box-sizing: border-box;
+                    border-radius: 0px 0px 15px 15px
+                ">
+                    <p>
+                        <strong>Email do solicitante:</strong> ${userEmail}
+                    </p>
+
+                    <p>
+                        <strong>Filme solicitado:</strong> ${movieName}
+                    </p>
+
+                    <p>
+                        <strong>Ano de lançamento:</strong> ${releaseYear}
+                    </p>
+
+                    ${description && 
+                        `
+                        <p>
+                            <strong>Descrição</strong> ${description}
+                        </p>
+                        `
+                    }
+                </div>
+            </div>
+        </body>
+        </html>
         `
     });
 }

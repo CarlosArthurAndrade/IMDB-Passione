@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { ChangeDescription, ChangeImage, ChangePassword, ChangeUsername, GetUser } from "../controlers/userController";
+import { ChangeDescription, ChangeImage, ChangePassword, ChangeUsername, GetUser } from "../controlers/userController.js";
 
 const userRouter = Router()
 userRouter.use(express.json())

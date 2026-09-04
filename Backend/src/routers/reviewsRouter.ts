@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { AddReview, DeleteReview, EditReview, GetMovieReviews, GetUserReviews } from "../controlers/reviewController";
+import { AddReview, DeleteReview, EditReview, GetMovieReviews, GetUserReviews } from "../controlers/reviewController.js";
 
 const reviewRouter = Router()
 reviewRouter.use(express.json())

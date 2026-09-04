@@ -1,7 +1,7 @@
-import { Response, Request } from "express";
-import UserAuthRequest from "../Interfaces/utils";
-import { collections } from "../services/databaseService";
-import { Review } from "../Interfaces/collectionsInterfaces";
+import type { Response, Request } from "express";
+import type UserAuthRequest from "../Interfaces/utils.js";
+import { collections } from "../services/databaseService.js";
+import type { Review } from "../Interfaces/collectionsInterfaces.js";
 import { ObjectId } from "mongodb";
 
 export const GetMovieReviews = async (req: Request, res: Response) => {
@@ -47,7 +47,7 @@ export const EditReview =  async (req: Request, res: Response) => {
         await collections.reviews?.updateOne({ _id: new ObjectId(reviewId) },
             { 
             title,
-            movieId,
+            movieId: new ObjectId(movieId),
             text,
             rating,
             likes: 0

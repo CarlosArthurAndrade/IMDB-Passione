@@ -1,6 +1,6 @@
-import { Response, Request } from "express";
-import UserAuthRequest from "../Interfaces/utils";
-import { collections } from "../services/databaseService";
+import type { Response, Request } from "express";
+import type UserAuthRequest from "../Interfaces/utils.js";
+import { collections } from "../services/databaseService.js";
 import bcrypt from 'bcrypt'
 import { ObjectId } from "mongodb";
 

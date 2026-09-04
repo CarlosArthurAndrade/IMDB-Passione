@@ -1,5 +1,5 @@
-import { ObjectId, WithId } from "mongodb";
-import { TagItem } from "./utils";
+import { ObjectId, type WithId } from "mongodb";
+import type { TagItem } from "./utils.js";
 
 export interface User extends WithId<Document> {
     username: string,

@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import { collections } from '../../src/services/databaseService';
-import { GetUserReviews } from '../../src/controlers/reviewController';
+import { collections } from '../../src/services/databaseService.js';
+import { GetUserReviews } from '../../src/controlers/reviewController.js';
 
 describe('Testa o controller GetUserReviews filmes', () => {
      it('testa pegar as reviews de um usuário', async () => { 
         const mockData = [
             {
-                movieId: 1,
-                userId: 1,
+                movieId: '507f1f77bcf86cd799439011',
+                userId: '507f1f77bcf86cd799439011',
                 title: 'titulo',
                 text: 'texto',
                 rating: 4.5,
@@ -22,7 +22,7 @@ describe('Testa o controller GetUserReviews filmes', () => {
         });
 
         const req = {
-            user: 1
+            user: '507f1f77bcf86cd799439011'
         } as any;
         
         const res = {

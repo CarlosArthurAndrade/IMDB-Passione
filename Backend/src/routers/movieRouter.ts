@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { AddMovie, DeleteMovie, EditMovie, ListMovies } from "../controlers/movieController";
+import { AddMovie, DeleteMovie, EditMovie, ListMovies } from "../controlers/movieController.js";
 
 const movieRouter = Router()
 movieRouter.use(express.json())

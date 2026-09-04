@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { EditMovie } from '../../src/controlers/movieController';
-import { collections } from '../../src/services/databaseService';
+import { EditMovie } from '../../src/controlers/movieController.js';
+import { collections } from '../../src/services/databaseService.js';
 
 describe('Testes do controller de editar filmes', () => {
     it('testa edição de filme feita com sucesso', async () => {
@@ -12,7 +12,8 @@ describe('Testes do controller de editar filmes', () => {
                 posterVertical: 'teste',
                 genres: [{ name: 'teste' }],
                 releaseDate: 'teste',
-                rating: 0
+                rating: 0,
+                movieId: '507f1f77bcf86cd799439011'
             }
         } as any
 

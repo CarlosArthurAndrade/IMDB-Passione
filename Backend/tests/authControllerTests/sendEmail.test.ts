@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { SendResetEmail } from "../../src/controlers/authController";
-import { collections } from "../../src/services/databaseService";
+import { SendResetEmail } from "../../src/controlers/authController.js";
+import { collections } from "../../src/services/databaseService.js";
 
 vi.mock("crypto", () => ({
     default: {
@@ -26,6 +26,10 @@ vi.mock('nodemailer', () => ({
     }
 }))
 
+vi.mock('../../src/utils/sendEmail', () => ({
+    CreateResetEmail: vi.fn()
+}))
+
 describe('Teste do envio do link de reset de senha', () => {
     beforeEach(() => {
         vi.stubEnv('process.env.EMAIL', 'email');
@@ -45,7 +49,7 @@ describe('Teste do envio do link de reset de senha', () => {
         } as any
 
         const findOneMock = vi.fn().mockReturnValue({
-            _id: 1
+            _id: '507f1f77bcf86cd799439011'
         })
 
         const insertOneMock = vi.fn().mockReturnValue({})

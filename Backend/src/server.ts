@@ -1,13 +1,13 @@
 import express, { type Request, type Response } from "express";
-import { connectToDatabase } from "./services/databaseService.ts";
+import { connectToDatabase } from "./services/databaseService.js";
 import * as dotenv from 'dotenv'
 import cors from 'cors'
-import movieRouter from "./routers/movieRouter.ts";
-import verifyLoginToken from "./middlewares/loginTokenMiddleware.ts";
-import authRouter from "./routers/authRouter.ts";
-import reviewRouter from "./routers/reviewsRouter.ts";
-import requestRouter from "./routers/requestRouter.ts";
-import userRouter from "./routers/userRouter.ts";
+import movieRouter from "./routers/movieRouter.js";
+import verifyLoginToken from "./middlewares/loginTokenMiddleware.js";
+import authRouter from "./routers/authRouter.js";
+import reviewRouter from "./routers/reviewsRouter.js";
+import requestRouter from "./routers/requestRouter.js";
+import userRouter from "./routers/userRouter.js";
 
 dotenv.config({ quiet: true });
 

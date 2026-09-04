@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
-import { DeleteMovie } from '../../src/controlers/movieController';
-import { collections } from '../../src/services/databaseService';
+import { DeleteMovie } from '../../src/controlers/movieController.js';
+import { collections } from '../../src/services/databaseService.js';
 
 describe('Testes do controller de deletar filmes', () => {
     it('testa remoção de filme feita com sucesso', async () => {
         const req = {
             body: {
-               movieId: 1
+               movieId: '507f1f77bcf86cd799439011'
             }
         } as any
 

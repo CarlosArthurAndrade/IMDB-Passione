@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { collections } from '../../src/services/databaseService';
-import { EditRequest } from '../../src/controlers/request.Controller';
+import { collections } from '../../src/services/databaseService.js';
+import { EditRequest } from '../../src/controlers/request.Controller.js';
 
 describe('Testa o controller EditRequest', () => {
     it('Testa editar um request com sucesso', async () => {
@@ -10,7 +10,7 @@ describe('Testa o controller EditRequest', () => {
                 description: 'irado',
                 releaseYear: 2006
             },
-            user: 1,
+            user: '507f1f77bcf86cd799439011',
         } as any;
         
         const res = {

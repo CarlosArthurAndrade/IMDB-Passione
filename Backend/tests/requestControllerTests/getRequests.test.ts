@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
-import { collections } from '../../src/services/databaseService';
-import { GetRequests } from '../../src/controlers/request.Controller';
+import { collections } from '../../src/services/databaseService.js';
+import { GetRequests } from '../../src/controlers/request.Controller.js';
 
 describe('Testa o controller GetRequests', () => {
     it('Testa pegar todos os requests com sucesso', async () => {
         const mockData = {
-            userId: 1,
+            userId: '507f1f77bcf86cd799439011',
             title: 'Carros',
             description: 'Irado',
             releaseYear: 2006

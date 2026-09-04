@@ -1,22 +1,29 @@
 import * as dotenv from 'dotenv'
-import { TMDBSearchMovieDetailsResult, TMDBSearchResult } from "../Interfaces/utils";
+import type { TMDBSearchMovieDetailsResult, TMDBSearchResult } from "../Interfaces/utils.js";
 
 dotenv.config({ quiet: true })
 
 export const getMovieId = async (title: string, year: number) => {
-    const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=true&language=pt-BR&page=1&year=${year}`, 
-        { headers: { Authorization: `Bearer ${process.env.TMDB_KEY}` }
-    }).then(resp => resp.json()) as TMDBSearchResult
-
-    return response.results[0].id
+    try {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=true&language=pt-BR&page=1&year=${year}`, 
+            { headers: { Authorization: `Bearer ${process.env.TMDB_KEY}` }
+        }).then(resp => resp.json()) as TMDBSearchResult
+        return response.results[0]!.id
+    } catch(err) {
+        console.error(err)
+    }
 }
 
 export const getMovieDataById = async (id: number) => {
-    const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?language=pt-BR`, 
-        { headers: { Authorization: `Bearer ${process.env.TMDB_KEY}` }
-    }).then(resp => resp.json()) as TMDBSearchMovieDetailsResult
+    try {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/movie/${id}?language=pt-BR`, 
+            { headers: { Authorization: `Bearer ${process.env.TMDB_KEY}` }
+        }).then(resp => resp.json()) as TMDBSearchMovieDetailsResult
 
-    return response
+        return response
+    } catch (err) {
+        console.error(err)
+    }
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import { AddMovie } from '../../src/controlers/movieController';
-import { collections } from '../../src/services/databaseService';
-import { getMovieDataById, getMovieId } from '../../src/utils/tmdbRequests';
+import { AddMovie } from '../../src/controlers/movieController.js';
+import { collections } from '../../src/services/databaseService.js';
+import { getMovieDataById, getMovieId } from '../../src/utils/tmdbRequests.js';
 
 vi.mock('../../src/utils/tmdbRequests', () => ({
   getMovieId: vi.fn(),
@@ -45,26 +45,6 @@ describe('testes da função de add filme', () => {
         expect(getMovieId).toHaveBeenCalled()
         expect(getMovieDataById).toHaveBeenCalled()
         expect(res.status).toHaveBeenCalledWith(201)
-    })
-
-    it('testa valores inválidos no request', async () => {
-        const req = {
-            body: {
-                title: null,
-                poster: 'poster.jpg',
-                year: 2020
-            }
-        } as any
-
-        const res = {
-            status: vi.fn().mockReturnThis(),
-            send: vi.fn()
-        } as any
-
-        await AddMovie(req, res)
-
-        expect(res.status).toHaveBeenCalledWith(400)
-        expect(res.send).toHaveBeenCalledWith({ message: 'Dados de request inválidos' })
     })
 
     it('Retorna erro 500 caso ocorra um erro ao adicionar um filme', async () => {

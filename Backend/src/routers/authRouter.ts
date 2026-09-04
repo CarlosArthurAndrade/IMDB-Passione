@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { Login, Register, ResetUserPassword, SendResetEmail } from "../controlers/authController";
+import { Login, Register, ResetUserPassword, SendResetEmail } from "../controlers/authController.js";
 
 const authRouter = Router()
 authRouter.use(express.json())

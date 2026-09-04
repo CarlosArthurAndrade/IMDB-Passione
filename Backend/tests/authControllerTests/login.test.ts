@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { Login } from '../../src/controlers/authController';
-import { collections } from '../../src/services/databaseService';
+import { Login } from '../../src/controlers/authController.js';
+import { collections } from '../../src/services/databaseService.js';
 import jwt from 'jsonwebtoken';
 
 vi.mock('bcrypt', () => ({

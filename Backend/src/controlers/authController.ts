@@ -1,10 +1,10 @@
 import crypto from "crypto";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
-import { Request, Response } from "express";
-import { collections } from "../services/databaseService";
-import { Token, User } from '../Interfaces/collectionsInterfaces'
-import { CreateResetEmail } from "../utils/sendEmail";
+import type { Request, Response } from "express";
+import { collections } from "../services/databaseService.js";
+import type { Token, User } from '../Interfaces/collectionsInterfaces.js'
+import { CreateResetEmail } from "../utils/sendEmail.js";
 import { ObjectId } from "mongodb";
 
 
@@ -56,7 +56,7 @@ export const SendResetEmail = async (req: Request, res: Response) => {
             return res.status(200).send({ message: "Se o email existir o link será enviado" })
         }
     } catch (error: unknown) {
-        return res.status(500).send(error);
+        return res.status(500).send({ error });
     }
 }
 

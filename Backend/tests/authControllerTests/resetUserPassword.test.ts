@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { ResetUserPassword } from "../../src/controlers/authController";
-import { collections } from "../../src/services/databaseService";
+import { ResetUserPassword } from "../../src/controlers/authController.js";
+import { collections } from "../../src/services/databaseService.js";
 
 vi.mock("crypto", () => ({
     default: {

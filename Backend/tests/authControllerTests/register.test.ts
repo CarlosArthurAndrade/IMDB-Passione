@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Register } from '../../src/controlers/authController';
-import { collections } from '../../src/services/databaseService';
+import { Register } from '../../src/controlers/authController.js';
+import { collections } from '../../src/services/databaseService.js';
 import jwt from 'jsonwebtoken';
 
 vi.mock('bcrypt', () => ({
@@ -44,7 +44,7 @@ describe('Testes da função register', () => {
             send: vi.fn()
         } as any
 
-        const findUserMock = vi.fn().mockReturnValue({})
+        const findUserMock = vi.fn().mockReturnValue(null)
         const insertOneMock = vi.fn().mockResolvedValue({})
 
         collections.users = {
@@ -55,7 +55,7 @@ describe('Testes da função register', () => {
         await Register(req, res)
 
         expect(res.status).toHaveBeenCalledWith(200)
-        expect(res.send).toHaveBeenCalledWith({ message: "Usuário cadastrado" })
+        expect(res.send).toHaveBeenCalledWith({ message: "Usuário cadastrado com sucesso!" })
     })
 
     it('testa registro com email já cadastrado', async () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { ListMovies } from '../../src/controlers/movieController';
-import { collections } from '../../src/services/databaseService';
+import { ListMovies } from '../../src/controlers/movieController.js';
+import { collections } from '../../src/services/databaseService.js';
 
 describe('Testa o controller ListMovies filmes', () => {
     it('testa listar todos os filmes', async () => {

@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { AddRequest, DeleteRequest, EditRequest, GetRequests } from "../controlers/request.Controller";
+import { AddRequest, DeleteRequest, EditRequest, GetRequests } from "../controlers/request.Controller.js";
 
 const requestRouter = Router()
 requestRouter.use(express.json())

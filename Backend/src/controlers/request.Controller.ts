@@ -1,8 +1,8 @@
-import { Response, Request } from "express";
-import { collections } from "../services/databaseService";
-import { Requests, User } from "../Interfaces/collectionsInterfaces";
-import UserAuthRequest from "../Interfaces/utils";
-import { CreateRequestEmail, DeleteRequesttEmail } from "../utils/sendEmail";
+import type { Response, Request } from "express";
+import { collections } from "../services/databaseService.js";
+import type { Requests, User } from "../Interfaces/collectionsInterfaces.js";
+import type UserAuthRequest from "../Interfaces/utils.js";
+import { CreateRequestEmail, DeleteRequesttEmail } from "../utils/sendEmail.js";
 import { ObjectId } from "mongodb";
 
 export const GetRequests = async (_req: Request, res: Response) => {
@@ -25,10 +25,10 @@ export const AddRequest = async (req: Request, res: Response) => {
             description,
             releaseYear
         })
-        await CreateRequestEmail(user.email, title)
+        await CreateRequestEmail(user.email, title, releaseYear, description)
         res.status(200).send({ message: "Request adicionado com sucesso"})    
     } catch (error: unknown) {
-        res.status(500).send(error);
+        res.status(500).send({error});
     }
 }
 
@@ -36,11 +36,12 @@ export const EditRequest = async (req: Request, res: Response) => {
     try {
         const { title, description, releaseYear } = req.body
         const userId  = (req as UserAuthRequest).user
-        await collections.requests?.updateOne({ userId }, {
-            userId,
+        await collections.requests?.updateOne({ userId: new ObjectId(userId) }, {
+            $set: {
             title,
             description,
             releaseYear
+        }
         })
         res.status(200).send({ message: 'Pedido alterado com sucesso!' })    
     } catch (error: unknown) {
