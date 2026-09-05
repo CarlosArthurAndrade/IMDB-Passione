@@ -14,26 +14,28 @@ dotenv.config({ quiet: true });
 const app = express()
 const PORT = process.env.PORT
 
-connectToDatabase()
-    .then(() => {
+async function start() {
+    try {
+        await connectToDatabase()
+
         app.use(cors());
         app.use('/auth', authRouter);
         app.use('/movies', verifyLoginToken, movieRouter)
-        app.use('/reviws', verifyLoginToken, reviewRouter)
+        app.use('/reviews', verifyLoginToken, reviewRouter)
         app.use('/requests', verifyLoginToken, requestRouter)
         app.use('/user', verifyLoginToken, userRouter)
+
+        app.get('/', (req: Request, res: Response) => {
+            res.status(200).send({ message: 'Backend do imdb passione rodando perfeitamente' })
+        })
 
         app.listen(PORT, () => {
             console.log(`Server started at http://localhost:${PORT}`);
         });
+    } catch(err) {
+        console.error("Database connection failed", err);
+    }
+}
 
-        app.get('/', (req: Request, res: Response) => {
-            res.send(200).send({ message: 'Backend do imdb passione rodando perfeitamente' })
-        })
-    })
-    .catch((error: Error) => {
-        console.error("Database connection failed", error);
-        process.exit();
-    });
-
+start()
 export default app

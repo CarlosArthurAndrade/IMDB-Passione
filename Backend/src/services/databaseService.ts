@@ -19,13 +19,12 @@ export async function connectToDatabase () {
         return;
     }
 
-   client = new mongoDB.MongoClient(process.env.MONGO_URI || '');
-
-   console.log("Tentando conectar...");
+   client = new mongoDB.MongoClient(process.env.MONGO_URI!, {
+    serverSelectionTimeoutMS: 10000,
+    connectTimeoutMS: 10000,
+  });
 
    await client.connect();
-
-   console.log("Conexão realizada!");
 
    db = client.db(process.env.DB_NAME)
 
