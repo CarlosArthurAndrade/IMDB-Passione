@@ -1,6 +1,8 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
 
+dotenv.config({ quiet: true });
+
 export const collections: { 
    users?: mongoDB.Collection,
    movies?: mongoDB.Collection,
@@ -9,29 +11,29 @@ export const collections: {
    tokens?: mongoDB.Collection
 } = {}
 
-export async function connectToDatabase () {
-   dotenv.config({ quiet: true });
+let client: mongoDB.MongoClient | null = null;
+let db: mongoDB.Db | null = null;
 
-   const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.MONGO_URI || '');
+export async function connectToDatabase () {
+   if (db) {
+        return;
+    }
+
+   client = new mongoDB.MongoClient(process.env.MONGO_URI || '');
+
+   console.log("Tentando conectar...");
 
    await client.connect();
 
-   const db: mongoDB.Db = client.db(process.env.DB_NAME);
+   console.log("Conexão realizada!");
 
-   const usersCollection: mongoDB.Collection = db.collection(process.env.USERS_COLLECTION_NAME || '');
-   collections.users = usersCollection;
+   db = client.db(process.env.DB_NAME)
 
-   const moviesCollection: mongoDB.Collection = db.collection(process.env.MOVIES_COLLECTION_NAME || '');
-   collections.movies = moviesCollection
-
-   const reviewsCollection: mongoDB.Collection = db.collection(process.env.REVIEWS_COLLECTION_NAME || '');
-   collections.reviews = reviewsCollection
-
-   const requestsCollection: mongoDB.Collection = db.collection(process.env.REQUESTS_COLLECTION_NAME || '');
-   collections.requests = requestsCollection
-
-   const tokensCollection: mongoDB.Collection = db.collection(process.env.TOKENS_COLLECTION_NAME || '');
-   collections.tokens = tokensCollection
+   collections.users = db.collection(process.env.USERS_COLLECTION_NAME!);
+   collections.movies = db.collection(process.env.MOVIES_COLLECTION_NAME!);
+   collections.reviews = db.collection(process.env.REVIEWS_COLLECTION_NAME!);
+   collections.requests = db.collection(process.env.REQUESTS_COLLECTION_NAME!);
+   collections.tokens = db.collection(process.env.TOKENS_COLLECTION_NAME!);
 
    console.log(`Successfully connected to database: ${db.databaseName}`);
 }
