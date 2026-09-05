@@ -26,6 +26,10 @@ connectToDatabase()
         app.listen(PORT, () => {
             console.log(`Server started at http://localhost:${PORT}`);
         });
+
+        app.get('/', (req: Request, res: Response) => {
+            res.send(200).send({ message: 'Backend do imdb passione rodando perfeitamente' })
+        })
     })
     .catch((error: Error) => {
         console.error("Database connection failed", error);
