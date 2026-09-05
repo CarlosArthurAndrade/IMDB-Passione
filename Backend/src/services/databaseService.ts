@@ -24,6 +24,9 @@ export async function connectToDatabase () {
     connectTimeoutMS: 10000,
   });
 
+   console.log('MONGO_URI existe?', !!process.env.MONGODB_URI);
+   console.log('MONGO_URI primeiros chars:', process.env.MONGODB_URI?.substring(0, 20));
+
    await client.connect();
 
    db = client.db(process.env.DB_NAME)
