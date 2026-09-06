@@ -24,9 +24,6 @@ export async function connectToDatabase () {
     connectTimeoutMS: 10000,
   });
 
-   console.log('MONGO_URI existe?', !!process.env.MONGODB_URI);
-   console.log('MONGO_URI primeiros chars:', process.env.MONGODB_URI?.substring(0, 20));
-
    await client.connect();
 
    db = client.db(process.env.DB_NAME)
@@ -36,6 +33,4 @@ export async function connectToDatabase () {
    collections.reviews = db.collection(process.env.REVIEWS_COLLECTION_NAME!);
    collections.requests = db.collection(process.env.REQUESTS_COLLECTION_NAME!);
    collections.tokens = db.collection(process.env.TOKENS_COLLECTION_NAME!);
-
-   console.log(`Successfully connected to database: ${db.databaseName}`);
 }

@@ -50,7 +50,7 @@ export const SendResetEmail = async (req: Request, res: Response) => {
             const token = crypto.randomBytes(32).toString("hex");
             const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
             await collections.tokens?.insertOne({ userId: new ObjectId(user._id), tokenHash, expiresAt: new Date(Date.now() + 30 * 60 * 1000) })
-            CreateResetEmail(email, token)
+            await CreateResetEmail(email, token)
             return res.status(200).send({ message: "Se o email existir o link será enviado" })
         } else {
             return res.status(200).send({ message: "Se o email existir o link será enviado" })
