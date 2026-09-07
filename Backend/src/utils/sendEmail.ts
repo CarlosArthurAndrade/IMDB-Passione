@@ -79,48 +79,40 @@ export async function CreateRequestEmail(
                 max-width: 600px;
                 margin: 0 auto;
                 padding: 20px;
-                background-color: #ffff;
+                background-color: #383D40;
                 border-radius: 8px;
             ">
                 <div style="
-                    border: 1px solid #ffffff;
                     padding: 10px;
                     box-sizing: border-box;
-                    border-radius: 15px 15px 0px 0px
                 ">
-                    <h1 style="font-size: 24px;">
+                    <h1 style="font-size: 24px; text-align: center; color: white;"  align="center">
                         Nova solicitação de filme
                     </h1>
-                    <p>
+                    <p style="text-align: center; color: white;"  align="center">
                         Uma nova solicitação de filme foi recebida.
                     </p>
                 </div>
 
                 <div style="
-                    border: 1px solid #ffffff;
                     padding: 10px;
                     box-sizing: border-box;
-                    border-radius: 0px 0px 15px 15px
                 ">
-                    <p>
+                    <p style="color: white;">
                         <strong>Email do solicitante:</strong> ${userEmail}
                     </p>
 
-                    <p>
+                    <p style="color: white;">
                         <strong>Filme solicitado:</strong> ${movieName}
                     </p>
 
-                    <p>
+                    <p style="color: white;">
                         <strong>Ano de lançamento:</strong> ${releaseYear}
                     </p>
 
-                    ${description && 
-                        `
-                        <p>
-                            <strong>Descrição</strong> ${description}
-                        </p>
-                        `
-                    }
+                    <p style="color: white;">
+                        <strong>Informações extras:</strong> ${description}
+                    </p>
                 </div>
             </div>
         </body>
@@ -151,7 +143,53 @@ export async function DeleteRequesttEmail(
         subject: "Seu filme solicitado foi adicionado",
 
         html: `
-            <p>Novo filme ${movieName} adicionado ao catálogo</p>
+            <!DOCTYPE html>
+        <html lang="pt-BR">
+            <head>
+                <link href="https://googleapis.com" rel="stylesheet">
+            </head>
+        <body style="
+            font-family: Lato, sans-serif;
+            background-color: #5D3FD3;
+            padding: 20px;
+        ">
+            <div style="
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #383D40;
+                border-radius: 8px;
+            ">
+                <div style="
+                    padding: 10px;
+                    box-sizing: border-box;
+                ">
+                    <h1 style="font-size: 24px; text-align: center; color: white;"  align="center">
+                        Solicitação atendida
+                    </h1>
+                    <p style="text-align: center; color: white;"  align="center">
+                        O filme ${movieName} que você solicitou foi adicionado ao catálogo
+                    </p>
+
+                    <div align="center" style="padding-top: 10px;">
+                        <a href="#" style="
+                            display: inline-block;
+                            padding: 10px;
+                            font-size: 16px;
+                            background-color: #8A2BE2;
+                            border-radius: 5px;
+                            color: white;
+                            text-decoration: none;
+                            border: none;
+                            outline: none;
+                        ">
+                            Faça sua review
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>
         `
     });
 }
