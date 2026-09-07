@@ -36,7 +36,7 @@ describe('Teste do envio do link de reset de senha', () => {
         vi.stubEnv('process.env.EMAIL_PASSWORD', 'senha')
     });
 
-    it('testa envio com sucesso', async () => {
+    it('testa envio com sucesso caso email exista', async () => {
         const req = {
             body: {
                 email: 'email@email.com'
@@ -65,5 +65,65 @@ describe('Teste do envio do link de reset de senha', () => {
         await SendResetEmail(req, res)
 
         expect(res.status).toHaveBeenCalledWith(200)
+    })
+
+    it('testa envio com sucesso caso não email exista', async () => {
+        const req = {
+            body: {
+                email: 'email@email.com'
+            }
+        } as any
+
+        const res = {
+            status: vi.fn().mockReturnThis(),
+            send: vi.fn()
+        } as any
+
+        const findOneMock = vi.fn().mockReturnValue(undefined)
+
+        const insertOneMock = vi.fn().mockReturnValue({})
+
+        collections.users = {
+            findOne: findOneMock
+        } as any
+
+        collections.tokens = {
+            insertOne: insertOneMock
+        } as any
+
+        await SendResetEmail(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(200)
+    })
+
+    it('testa caso dê erro em algum lugar do código', async () => {
+        const error = new Error('Falha critica')
+
+        const req = {
+            body: {
+                email: 'email@email.com'
+            }
+        } as any
+
+        const res = {
+            status: vi.fn().mockReturnThis(),
+            send: vi.fn()
+        } as any
+
+        const findOneMock = vi.fn().mockThrow(error)
+
+        const insertOneMock = vi.fn().mockReturnValue({})
+
+        collections.users = {
+            findOne: findOneMock
+        } as any
+
+        collections.tokens = {
+            insertOne: insertOneMock
+        } as any
+
+        await SendResetEmail(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(500)
     })
 })

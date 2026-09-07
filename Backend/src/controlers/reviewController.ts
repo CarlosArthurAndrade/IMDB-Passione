@@ -43,14 +43,14 @@ export const AddReview =  async (req: Request, res: Response) => {
 
 export const EditReview =  async (req: Request, res: Response) => {
     try {
-        const { title, movieId, text, rating, reviewId } = req.body
-        await collections.reviews?.updateOne({ _id: new ObjectId(reviewId) },
-            { 
+        const { title, text, rating, reviewId } = req.body
+        await collections.reviews?.updateOne({ _id: new ObjectId(reviewId) }, {
+            $set: { 
             title,
-            movieId: new ObjectId(movieId),
             text,
             rating,
             likes: 0
+        }
         }
         )
         res.status(200).send({ message: 'Review Modificada com sucesso!' })
