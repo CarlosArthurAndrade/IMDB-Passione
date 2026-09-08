@@ -12,7 +12,6 @@
   --main-background: #0B0B1A;
   --bg-card: #14142B;
   --bg-input: #1E1B3A;
-  --bg-input-border: 1px solid #F6FF7D;
   --bg-login-button: linear-gradient(to right, #7B2FF7, #C77DFF);
   --h1-login: #F5F3FF;
   --login-placeholder: #B8B3D9;
@@ -32,7 +31,7 @@
 }
 
 .bg-input-border {
-  border: var(--bg-input-border);
+  border-bottom: 1.5px solid #453f70 
 }
 
 .bg-login-button {
