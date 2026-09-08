@@ -1,4 +1,5 @@
 "use client"
+import { GoSun, GoMoon } from "react-icons/go";
 
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
@@ -16,9 +17,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(current === "dark" ? "light" : "dark")}
-      style={{ padding: 8, border: "1px solid #ccc" }}
     >
-      Alternar para {current === "dark" ? "claro" : "escuro"}
+      {current === "dark" ? <GoSun size={20}/> : <GoMoon size={20}/>}
     </button>
   )
 }

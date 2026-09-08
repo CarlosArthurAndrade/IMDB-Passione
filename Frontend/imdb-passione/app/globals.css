@@ -2,16 +2,41 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-cosmic-bg: #0B0B1A;
+  --color-cosmic-card: #14142B;
+  --color-cosmic-input: #1E1B3A;
+  --color-cosmic-border: #3A2E5C;
+  --color-cosmic-border-input: #5A189A;
+  --color-cosmic-purple: #7B2FF7;
+  --color-cosmic-purple-hover: #9D4EDD;
+  --color-cosmic-purple-light: #C77DFF;
+  --color-cosmic-text: #F5F3FF;
+  --color-cosmic-text-muted: #B8B3D9;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+      opacity: 0.15;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
 :root {
-  --main-background: #fff;
-  --bg-card: #fff;
-  --bg-input: #fff;
+  --main-background: #C5D3EC;
+  --bg-card: #FFFFFF;
+  --card-border: #8FA9E8;
+  --full-border: #7891C9;
+  --bg-login-button: linear-gradient(135deg, #2C4A8C 0%, #4A6FC2 100%);
 }
 
 .dark {
   --main-background: #0B0B1A;
   --bg-card: #14142B;
-  --bg-input: #1E1B3A;
+  --card-border: none;
   --bg-login-button: linear-gradient(to right, #7B2FF7, #C77DFF);
   --h1-login: #F5F3FF;
   --login-placeholder: #B8B3D9;
@@ -26,11 +51,11 @@
   background-color: var(--bg-card);
 }
 
-.bg-input {
-  background-color: var(--bg-input);
+.full-border {
+  border: 1.5px solid var(--full-border);
 }
 
-.bg-input-border {
+.input-border {
   border-bottom: 1.5px solid #453f70 
 }
 
