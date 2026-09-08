@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --main-background: #fff;
+  --bg-card: #fff;
+  --bg-input: #fff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --main-background: #0B0B1A;
+  --bg-card: #14142B;
+  --bg-input: #1E1B3A;
+  --bg-input-border: 1px solid #F6FF7D;
+  --bg-login-button: linear-gradient(to right, #7B2FF7, #C77DFF);
+  --h1-login: #F5F3FF;
+  --login-placeholder: #B8B3D9;
+  --login-link: #C77DFF;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.bg-main {
+  background-color: var(--main-background);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.bg-card {
+  background-color: var(--bg-card);
+}
+
+.bg-input {
+  background-color: var(--bg-input);
+}
+
+.bg-input-border {
+  border: var(--bg-input-border);
+}
+
+.bg-login-button {
+  background: var(--bg-login-button);
+}
+
+.h1-login {
+  color: var(--h1-login);
+}
+
+.login-placeholder {
+  color: var(--login-placeholder);
+}
+
+.login-link {
+  color: var(--login-link);
 }
