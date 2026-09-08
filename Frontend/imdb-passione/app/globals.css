@@ -33,14 +33,17 @@ html, body {
   --main-background: #C5D3EC;
   --bg-card: #FFFFFF;
   --card-border: #8FA9E8;
+  --bg-input: #E4EAF7;
   --full-border: #7891C9;
   --bg-login-button: linear-gradient(135deg, #2C4A8C 0%, #4A6FC2 100%);
+  --login-link: #16213D;
 }
 
 .dark {
   --main-background: #0B0B1A;
   --bg-card: #14142B;
   --card-border: none;
+  --bg-input: none;
   --bg-login-button: linear-gradient(to right, #7B2FF7, #C77DFF);
   --h1-login: #F5F3FF;
   --login-placeholder: #B8B3D9;
@@ -53,6 +56,10 @@ html, body {
 
 .bg-card {
   background-color: var(--bg-card);
+}
+
+.bg-input {
+  background-color: var(--bg-input);
 }
 
 .full-border {

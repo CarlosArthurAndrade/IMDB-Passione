@@ -24,7 +24,7 @@ export default function Home() {
               <a className="text-xs login-link">Esqueci minha senha</a>
             </div>
             <input 
-              type="text" placeholder="exemplo@email.com"
+              type="text"
               className="w-full p-2 text-sm bg-input input-border focus:outline-none rounded-lg"
               />
           </div>
