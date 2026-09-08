@@ -25,6 +25,10 @@
     }
   }
 
+html, body {
+  overscroll-behavior-y: none;
+}
+
 :root {
   --main-background: #C5D3EC;
   --bg-card: #FFFFFF;
