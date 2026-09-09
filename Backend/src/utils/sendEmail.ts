@@ -17,7 +17,7 @@ export async function CreateResetEmail(
         }
     });
     const link =
-        `http://localhost:3000/resetPassword/${token}`;
+        `https://imdb-passione.vercel.app/reset-password/${token}`;
 
     await transporter.sendMail({
 

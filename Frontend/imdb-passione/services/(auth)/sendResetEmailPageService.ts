@@ -1,3 +1,4 @@
+import { postData } from "@/utils/httpRequests/httpRequests";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,8 +19,9 @@ export function SendResetEmailPageService() {
         defaultValues: { email: "" },
     });
 
-    const onSubmit = (data: SendResetEmailInput) => {
-        console.log(data);
+    const onSubmit = async (data: SendResetEmailInput) => {
+        const response = await postData('https://imdb-passione-backend.vercel.app/send-reset-email', data)
+        console.log(response)
     };
 
     return { register, handleSubmit, onSubmit }

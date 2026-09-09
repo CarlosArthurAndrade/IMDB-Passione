@@ -1,5 +1,7 @@
+'use server'
 import { postData } from "@/utils/httpRequests/httpRequests";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { redirect } from 'next/navigation'
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -22,7 +24,8 @@ export function LoginPageService() {
 
     const onSubmit = async (data: LoginInput) => {
         const response = await postData<{token: string}>('https://imdb-passione-backend.vercel.app/auth/login', data)
-        console.log(response)
+        localStorage.setItem("userId", JSON.stringify(response?.token))
+        redirect('/main')
     };
 
     return { register, handleSubmit, onSubmit }
