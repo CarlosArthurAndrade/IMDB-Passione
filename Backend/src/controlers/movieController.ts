@@ -21,7 +21,6 @@ export const AddMovie = async (req: Request, res: Response) => {
                 posterVertical,
                 genres,
                 releaseDate,
-                rating
             } = req.body
         await collections.movies?.insertOne(
             {
