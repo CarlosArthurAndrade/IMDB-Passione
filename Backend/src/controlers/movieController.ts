@@ -1,7 +1,6 @@
 import type { Request, Response } from "express";
 import { collections } from "../services/databaseService.js";
 import type { Movie } from "../Interfaces/collectionsInterfaces.js";
-import { getMovieDataById, getMovieId } from "../utils/tmdbRequests.js";
 import { ObjectId } from "mongodb";
 
 export const ListMovies = async (_req: Request, res: Response) => {
@@ -15,17 +14,23 @@ export const ListMovies = async (_req: Request, res: Response) => {
 
 export const AddMovie = async (req: Request, res: Response) => {
     try {
-        const { title, poster, year } = req.body
-        const MovieId = await getMovieId(title, year)
-        const MovieDetails = await getMovieDataById(MovieId!)
+        const {
+                title,
+                overview,
+                posterHorizontal,
+                posterVertical,
+                genres,
+                releaseDate,
+                rating
+            } = req.body
         await collections.movies?.insertOne(
             {
-                title: MovieDetails!.title, 
-                overview: MovieDetails!.overview,
-                posterHorizontal: poster,
-                posterVertical: `http://image.tmdb.org/t/p/w500${MovieDetails!.poster_path}`,
-                genres: MovieDetails!.genres.map(genre => genre.name),
-                releaseDate: new Intl.DateTimeFormat('pt-BR').format(new Date(MovieDetails!.release_date)),
+                title ,
+                overview,
+                posterHorizontal,
+                posterVertical: `http://image.tmdb.org/t/p/w500${posterVertical}`,
+                genres,
+                releaseDate: new Intl.DateTimeFormat('pt-BR').format(new Date(releaseDate)),
                 rating: 0
             })
         res.status(201).send({ message: 'Filme adicionado' })
