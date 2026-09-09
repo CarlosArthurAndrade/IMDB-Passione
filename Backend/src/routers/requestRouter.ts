@@ -1,12 +1,10 @@
 import express, { Router } from "express";
-import { AddRequest, DeleteRequest, EditRequest, GetRequests } from "../controlers/request.Controller.js";
+import { GetMovieById, GetMovieList } from "../controlers/request.Controller.js";
 
 const requestRouter = Router()
 requestRouter.use(express.json())
 
-requestRouter.get('/get-requests', GetRequests)
-requestRouter.post('/add-request', AddRequest)
-requestRouter.put('/update-request', EditRequest)
-requestRouter.delete('/delete-request', DeleteRequest)
+requestRouter.post('/search-by-name', GetMovieList)
+requestRouter.post('search-by-id', GetMovieById)
 
 export default requestRouter

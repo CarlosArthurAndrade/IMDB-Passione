@@ -3,13 +3,13 @@ import type { TMDBSearchMovieDetailsResult, TMDBSearchResult } from "../Interfac
 
 dotenv.config({ quiet: true })
 
-export const getMovieId = async (title: string, year: number) => {
+export const getMoviesList = async (title: string) => {
     try {
         const response = await fetch(
-            `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=true&language=pt-BR&page=1&year=${year}`, 
+            `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=true&language=pt-BR&page=1`, 
             { headers: { Authorization: `Bearer ${process.env.TMDB_KEY}` }
         }).then(resp => resp.json()) as TMDBSearchResult
-        return response.results[0]!.id
+        return response.results
     } catch(err) {
         console.error(err)
     }

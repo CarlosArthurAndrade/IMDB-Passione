@@ -27,13 +27,6 @@ export interface Review extends WithId<Document> {
     likes: number
 }
 
-export interface Requests extends WithId<Document> {
-    userId: string,
-    title: string,
-    description: string,
-    releaseYear: number
-}
-
 export interface Token extends WithId<Document> {
     userId: ObjectId,
     tokenHash: string,
