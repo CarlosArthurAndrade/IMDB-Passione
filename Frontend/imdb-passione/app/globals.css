@@ -17,13 +17,13 @@
 }
 
 @keyframes twinkle {
-    0%, 100% {
-      opacity: 0.15;
-    }
-    50% {
-      opacity: 1;
-    }
+  0%, 100% {
+    opacity: 0.15;
   }
+  50% {
+    opacity: 1;
+  }
+}
 
 html, body {
   overscroll-behavior-y: none;

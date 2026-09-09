@@ -11,7 +11,7 @@ import { ObjectId } from "mongodb";
 export const Login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
-        const findUser = await collections.users?.findOne({ email }) as User
+        const findUser = await collections.users?.findOne({ email }, { collation: { locale: 'pt', strength: 2} }) as User
         if(await bcrypt.compare(password, findUser.password)){
             const token = jwt.sign({id: findUser._id }, process.env.CHAVE_SECRETA_JWT || 'Chave Secreta', { expiresIn: '3h' })
             return res.status(200).send({ token })
@@ -26,7 +26,7 @@ export const Login = async (req: Request, res: Response) => {
 export const Register = async (req: Request, res: Response) => {
     try {
         const { email, password, username, description, image } = req.body
-        const findUser = await collections.users?.findOne({ $or: [{ email }, { username }]}) as User
+        const findUser = await collections.users?.findOne({ $or: [{ email }, { username }]}, { collation: { locale: 'pt', strength: 2} }) as User
         if(!findUser){
             const hashPassword = await bcrypt.hash(password, 10)
             await collections.users?.insertOne({ username, email, password: hashPassword, description, image })
@@ -45,7 +45,7 @@ export const Register = async (req: Request, res: Response) => {
 export const SendResetEmail = async (req: Request, res: Response) => {
     try {
         const { email } = req.body
-        const user = await collections.users?.findOne({ email })
+        const user = await collections.users?.findOne({ email }, { collation: { locale: 'pt', strength: 2} })
         if(user){
             const token = crypto.randomBytes(32).toString("hex");
             const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
