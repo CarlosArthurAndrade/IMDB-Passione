@@ -26,7 +26,7 @@ export function ResetPasswordPageService() {
 
     const onSubmit = async (data: ResetPasswordInput, token: string) => {
         const reqBody = { password: data.password, token}
-        const response = await postData('https://imdb-passione-backend.vercel.app/reset-password', reqBody)
+        const response = await postData('https://imdb-passione-backend.vercel.app/auth/reset-password', reqBody)
         console.log(response)
     };
 
