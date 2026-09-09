@@ -1,3 +1,4 @@
+"use client"
 import { postData } from "@/utils/httpRequests/httpRequests";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

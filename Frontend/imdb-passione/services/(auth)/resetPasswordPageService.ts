@@ -1,3 +1,4 @@
+"use client"
 import { postData } from "@/utils/httpRequests/httpRequests";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -7,7 +8,8 @@ const resetPasswordSchema = z.object({
   password: z.string(),
   confirm_password: z.string()
 }).refine((data) => data.password === data.confirm_password, {
-    error: 'Campos não são iguais'
+    error: 'Campos não são iguais',
+    path: ['confirm_password']
 });
 
 type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
@@ -22,8 +24,9 @@ export function ResetPasswordPageService() {
         defaultValues: { confirm_password: "", password: "" },
     });
 
-    const onSubmit = (data: ResetPasswordInput) => {
-        const response = postData('https://imdb-passione-backend.vercel.app/reset-passwordl', data)
+    const onSubmit = async (data: ResetPasswordInput, token: string) => {
+        const reqBody = { password: data.password, token}
+        const response = await postData('https://imdb-passione-backend.vercel.app/reset-password', reqBody)
         console.log(response)
     };
 

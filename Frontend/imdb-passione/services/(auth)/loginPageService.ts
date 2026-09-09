@@ -1,4 +1,4 @@
-'use server'
+"use client";
 import { postData } from "@/utils/httpRequests/httpRequests";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { redirect } from 'next/navigation'
