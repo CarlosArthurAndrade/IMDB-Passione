@@ -21,7 +21,7 @@ export function SendResetEmailPageService() {
     });
 
     const onSubmit = async (data: SendResetEmailInput) => {
-        const response = await postData('https://imdb-passione-backend.vercel.app/send-reset-email', data)
+        const response = await postData('https://imdb-passione-backend.vercel.app/auth/send-reset-email', data)
         console.log(response)
     };
 
