@@ -62,13 +62,13 @@ export default function SwipeTabs({
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
           onDragEnd={handleDragEnd}
-          className="absolute inset-0 w-full h-full touch-pan-y overflow-y-auto"
+          className="absolute inset-0 w-full h-full touch-pan-y"
         >
           {screens[index]}
         </motion.div>
       </AnimatePresence>
 
-      <div className="md:hidden absolute bottom-0 left-0 right-0 flex justify-around items-center h-12 bg-black/90 backdrop-blur border-t border-white/10">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 flex justify-around items-center h-12 bg-black/90 backdrop-blur">
         {TABS.map((tab, i) => (
           <button
             key={i}
