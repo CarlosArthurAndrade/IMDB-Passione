@@ -25,6 +25,16 @@
   }
 }
 
+@keyframes timer {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0%;
+  }
+}
+
 html, body {
   overscroll-behavior-y: none;
 }
@@ -84,4 +94,20 @@ html, body {
 
 .login-link {
   color: var(--login-link);
+}
+
+.bg-green-bar {
+  background-color: #39a96b;
+}
+
+.bg-red-bar {
+  background-color: #c94b67;
+}
+
+.bg-green-alert {
+  background-color: #10251f;
+}
+
+.bg-red-alert {
+  background-color: #28151d;
 }
