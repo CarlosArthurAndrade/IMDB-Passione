@@ -1,4 +1,4 @@
-import { SendAlertMessagePropTypes } from "@/interfaces/utils/sendAlertMessageProps"
+import { SendAlertMessagePropTypes } from "@/interfaces/(auth)/sendAlertMessageProps"
 
 export default function sendAlertMessage({ message, color, setShowAlert}: SendAlertMessagePropTypes) {
     return new Promise<void>((resolve, _reject) => {

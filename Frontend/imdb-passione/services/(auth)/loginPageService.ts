@@ -1,7 +1,7 @@
 "use client";
 import { postData } from "@/services/utils/httpRequests/httpRequests";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -30,12 +30,14 @@ export function LoginPageService() {
         defaultValues: { email: "", password: "" },
     });
 
+    const router = useRouter();
+
     const onSubmit = async (data: LoginInput) => {
         try {
             const response = await postData<HttpResponse<{ token: string }>>('https://imdb-passione-backend.vercel.app/auth/login', data)
             if(response?.statusCode === 200){
                 localStorage.setItem("userId", JSON.stringify(response?.data?.token))
-                redirect('/main')
+                router.push('/main')
             } else if(response?.statusCode === 404) {
                 setAlert({ message: 'Email ou senha incorretos', color: 'red' })
                 await sendAlertMessage({ message: alert.message, color: alert.color, setShowAlert })

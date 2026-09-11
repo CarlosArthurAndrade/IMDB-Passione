@@ -17,7 +17,7 @@ export default function ReponseAlert({ message, color }: { message: string, colo
                     <div>
                         {color === 'green' ? <FaCheckCircle size={15}/> : <TiWarning size={20}/> }
                     </div>
-                    <p>{message}</p>
+                    <p className="text-xs md:text-ls">{message}</p>
                 </div>
             </motion.div>
         </AnimatePresence>
