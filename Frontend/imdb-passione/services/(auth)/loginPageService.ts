@@ -34,12 +34,12 @@ export function LoginPageService() {
 
     const onSubmit = async (data: LoginInput) => {
         try {
-            const response = await postData<HttpResponse<{ token: string }>>('https://imdb-passione-backend.vercel.app/auth/login', data)
+            const response = await postData<string>('https://imdb-passione-backend.vercel.app/auth/login', data)
             if(response?.statusCode === 200){
-                localStorage.setItem("userId", JSON.stringify(response?.data?.token))
+                localStorage.setItem("userId", response.data!)
                 router.push('/main')
             } else if(response?.statusCode === 404) {
-                setAlert({ message: 'Email ou senha incorretos', color: 'red' })
+                setAlert({ message: response.message!, color: 'red' })
                 await sendAlertMessage({ message: alert.message, color: alert.color, setShowAlert })
             } else {
                 setAlert({ message: 'Ocorreu um erro no sistema', color: 'red' })

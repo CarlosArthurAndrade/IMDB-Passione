@@ -2,7 +2,7 @@
 
 export default function SeriesList() {
     return(
-        <div>
+        <div className="h-screen">
             <h1>Séries</h1>
         </div>
     )
