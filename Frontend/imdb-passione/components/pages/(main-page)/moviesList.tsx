@@ -14,7 +14,7 @@ export default function MoviesList({ movies, placeholder, searchCard }: MovieLis
             <h1 className="text-xl text-white/80">Catálogo de filmes</h1>
             <SearchInput placeholder={placeholder} onChange={searchCard}/>
             <div className="flex flex-col gap-8 px-4 lg:grid md:grid-cols-2 md:gap-1 md:w-3/4 w-full overflow-y-auto"> 
-                {movies.map(movie => 
+                {movies.map((movie, index) => 
                     <MobileMovieCard 
                         key={movie._id}
                         title={movie.title} 
@@ -22,6 +22,7 @@ export default function MoviesList({ movies, placeholder, searchCard }: MovieLis
                         rating={movie.rating} 
                         year={movie.releaseDate} 
                         _id={movie._id}
+                        isFirst={ index < 2 }
                     />
                 )}
             </div>

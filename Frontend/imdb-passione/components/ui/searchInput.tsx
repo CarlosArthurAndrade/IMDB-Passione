@@ -18,7 +18,7 @@ export default function SearchInput({ placeholder, onChange }: SearchCardInputPr
     }
     
     return (
-        <div className="flex search-bar w-9/10 rounded-xl px-4 mt-5 box-border">
+        <div className="flex search-bar w-9/10 rounded-xl px-4 my-5 box-border">
             <button className="" disabled>
                 <IoSearchOutline className="" />
             </button>

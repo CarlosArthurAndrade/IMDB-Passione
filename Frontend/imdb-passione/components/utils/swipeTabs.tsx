@@ -24,6 +24,7 @@ export default function SwipeTabs({
   screens: React.ReactNode[];
 }) {
   const [[index, direction], setIndex] = useState([0, 0]);
+  const [isDragging, setIsDragging] = useState(false);
   const total = screens.length;
 
   const threshold = 80;
@@ -37,6 +38,10 @@ export default function SwipeTabs({
     setIndex([newIndex, dir]);
   }
 
+  function handleDragStart() {
+    setIsDragging(true);
+  }
+
   function handleDragEnd(_: any, info: PanInfo) {
     const { offset, velocity } = info;
     if (offset.x < -threshold || velocity.x < -velocityThreshold) {
@@ -44,11 +49,14 @@ export default function SwipeTabs({
     } else if (offset.x > threshold || velocity.x > velocityThreshold) {
       paginate(-1);
     }
+
+    // mantém os cliques bloqueados por mais um instante,
+    // pra "engolir" o clique-fantasma que o dedo solta em seguida
+    setTimeout(() => setIsDragging(false), 150);
   }
 
   function goToTab(i: number) {
     if (i === index) return;
-    // decide a direção mais "curta" visualmente pro clique direto na bottom bar
     const forwardDist = (i - index + total) % total;
     const backwardDist = (index - i + total) % total;
     setIndex([i, forwardDist <= backwardDist ? 1 : -1]);
@@ -79,10 +87,16 @@ export default function SwipeTabs({
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
+          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           className="absolute inset-0 w-full h-full touch-pan-y pb-12"
         >
-          {screens[index]}
+          {/* o pointer-events só desliga aqui dentro — o motion.div em si
+              continua recebendo o gesto normalmente, já que o pointer
+              já está "capturado" por ele desde o drag start */}
+          <div style={{ pointerEvents: isDragging ? 'none' : 'auto' }} className="w-full h-full">
+            {screens[index]}
+          </div>
         </motion.div>
       </AnimatePresence>
 
@@ -101,7 +115,7 @@ export default function SwipeTabs({
         ))}
       </div>
 
-      {/* // Setas desktop */}
+      {/* Setas desktop */}
       <button
         onClick={() => paginate(-1)}
         aria-label={`Ir para ${TAB_ICONS[prevIndex]}`}

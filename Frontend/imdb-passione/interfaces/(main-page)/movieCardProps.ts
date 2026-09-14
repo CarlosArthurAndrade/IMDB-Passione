@@ -3,7 +3,8 @@ export interface MobileMovieCardProps {
     posterHorizontal: string,
     rating: number,
     year: string,
-    _id: string
+    _id: string,
+    isFirst: boolean
 }
 
 export interface MovieCardProps {

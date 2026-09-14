@@ -1,6 +1,7 @@
 import { MobileMovieCardProps } from "@/interfaces/(main-page)/movieCardProps"
 import { AnimatePresence, motion } from "framer-motion"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 const cardVariants = {
   hidden: { opacity: 0, y: -24 },
@@ -8,7 +9,7 @@ const cardVariants = {
   exit: { opacity: 0, y: -24 },
 };
 
-export default function MobileMovieCard({ _id, posterHorizontal, rating, year, title }: MobileMovieCardProps) {
+export default function MobileMovieCard({ _id, posterHorizontal, rating, year, title, isFirst }: MobileMovieCardProps) {
     const router = useRouter()
     return(
         <AnimatePresence>
@@ -21,13 +22,22 @@ export default function MobileMovieCard({ _id, posterHorizontal, rating, year, t
             className="w-full h-full flex flex-col items-center" onClick={() => router.push(`/movie-details/${_id}`)}>
                     <div className="w-full">
                         <div className="w-full flex flex-col items-center">
-                            <div 
-                            className={`relative w-full h-[200px] rounded-lg overflow-hidden bg-cover bg-center`}
-                            style={{
-                                backgroundImage: `url("https://image.tmdb.org/t/p/original${posterHorizontal}")`
-                            }}
-                            >
+                            <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
                                 
+                                <Image
+                                    src={`https://image.tmdb.org/t/p/w780${posterHorizontal}`}
+                                    alt={title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 500px"
+                                    className="object-cover pointer-events-none select-none"
+                                    draggable={false}
+                                    priority={isFirst}
+                                    style={{
+                                        WebkitUserDrag: 'none',
+                                        WebkitTouchCallout: 'none',
+                                    } as React.CSSProperties}
+                                />
+
                                 <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent" />
 
                                 <div className="relative z-10 flex flex-col items-start justify-end w-full h-full p-4">
