@@ -7,13 +7,13 @@ import { MovieListPageProps } from "@/interfaces/ui/InputProps"
 
 export default function MoviesList({ movies, placeholder, searchCard }: MovieListPageProps) {
     return(
-        <div className="w-full flex flex-col items-center justify-center mt-15">
-            <div className="absolute top-10 right-7">
+        <div className="min-h-full w-full flex flex-col items-center justify-start mt-15 pb-4">
+            <div className="w-9/10 px-4 flex justify-end">
                 <ThemeToggle />
             </div>
             <h1 className="text-xl text-white/80">Catálogo de filmes</h1>
             <SearchInput placeholder={placeholder} onChange={searchCard}/>
-            <div className="flex flex-col gap-8 px-4 lg:grid md:grid-cols-2 md:gap-1 md:w-3/4 w-full overflow-y-auto"> 
+            <div className="flex flex-col gap-8 px-4 lg:grid md:grid-cols-2 md:gap-1 md:w-3/4 w-full">
                 {movies.map((movie, index) => 
                     <MobileMovieCard 
                         key={movie._id}

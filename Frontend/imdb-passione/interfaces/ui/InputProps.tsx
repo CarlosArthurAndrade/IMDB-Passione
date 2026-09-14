@@ -8,6 +8,6 @@ export interface SearchCardInputProps {
 
 export interface MovieListPageProps {
     movies: Movie[], 
-    searchCard: (event: ChangeEvent<HTMLInputElement, Element>) => void, 
+    searchCard: (event: ChangeEvent<HTMLInputElement>) => void,
     placeholder: string 
 }

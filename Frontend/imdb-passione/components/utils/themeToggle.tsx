@@ -38,7 +38,7 @@ export default function ThemeToggle() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <GoMoon size={25} />
+            <GoMoon size={30} />
           </motion.span>
         ) : (
           <motion.span
@@ -49,7 +49,7 @@ export default function ThemeToggle() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <GoSun size={25} />
+            <GoSun size={30} />
           </motion.span>
         )}
       </AnimatePresence>

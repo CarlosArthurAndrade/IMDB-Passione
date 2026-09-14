@@ -11,7 +11,7 @@ import MoviePageService from "@/services/(main-page)/moviePageService";
 export default function MainPage() {
   const { filteredMovies, searchCard } = MoviePageService()
   return (
-    <div className="h-screen w-screen">
+    <div className="relative h-[100dvh] w-full overflow-hidden">
       <DarkBackground />
       <SunsetBackground />
         <SwipeTabs screens={[
