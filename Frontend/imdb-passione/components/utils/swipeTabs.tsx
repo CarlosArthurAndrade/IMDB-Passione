@@ -105,7 +105,7 @@ export default function SwipeTabs({
       <button
         onClick={() => paginate(-1)}
         aria-label={`Ir para ${TAB_ICONS[prevIndex]}`}
-        className="hidden md:flex items-center gap-2 absolute left-4 top-1/2 -translate-y-1/2 px-4 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
+        className="hidden md:flex items-center gap-2 absolute left-4 top-1/2 -translate-y-1/2 pl-3 pr-4 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
       >
         <IoIosArrowBack size={18} />
         {TAB_ICONS[prevIndex]}
@@ -114,7 +114,7 @@ export default function SwipeTabs({
       <button
         onClick={() => paginate(1)}
         aria-label={`Ir para ${TAB_ICONS[nextIndex]}`}
-        className="hidden md:flex items-center gap-2 absolute right-4 top-1/2 -translate-y-1/2 px-4 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
+        className="hidden md:flex items-center gap-2 absolute right-4 top-1/2 -translate-y-1/2 pl-4 pr-3 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
       >
         {TAB_ICONS[nextIndex]}
         <IoIosArrowForward size={18} />

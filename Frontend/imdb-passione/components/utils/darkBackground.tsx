@@ -1,6 +1,20 @@
 import { stars } from "@/utils/starsData";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 export default function DarkBackground() {
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
+
+    // Evita mismatch de hydration: só decide light/dark depois de montar no client
+    if (!mounted || resolvedTheme === "light") {
+      return null;
+    }
+    
     return(
         <div
         aria-hidden

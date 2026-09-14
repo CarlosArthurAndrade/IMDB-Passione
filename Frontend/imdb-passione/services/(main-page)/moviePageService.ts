@@ -1,9 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getData } from "../utils/httpRequests/httpRequests";
 import { Movie } from "@/interfaces/(main-page)/movieCardProps";
 
 export default function MoviePageService() {
     const [movies, setMovies] = useState<Movie[]>([])
+    const [search, setSearch] = useState("")
+
+    const filteredMovies = useMemo(() => {
+        return movies.filter((movie) => {
+            const matchesSearch =
+                movie.title
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+
+            return matchesSearch
+        })
+    }, [movies, search])
+
+
+    const searchCard = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setSearch(event.target.value)
+    }
 
     useEffect(() => {
         const token = localStorage.getItem('userId')
@@ -15,5 +34,5 @@ export default function MoviePageService() {
         getMovies()
     }, [])
 
-    return({ movies })
+    return({ filteredMovies, searchCard })
 }

@@ -6,6 +6,14 @@ export interface MobileMovieCardProps {
     _id: string
 }
 
+export interface MovieCardProps {
+    _id: string,
+    title: string,
+    posterVertical: string,
+    rating: number,
+    year: string
+}
+
 export interface TagItem {
     name: string
 }

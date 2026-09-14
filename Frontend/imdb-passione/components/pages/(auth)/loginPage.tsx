@@ -5,13 +5,15 @@ import ThemeToggle from "../../utils/themeToggle";
 import { LoginPageService } from "@/services/(auth)/loginPageService";
 import SubmitButtonComponent from "@/components/ui/submitButtonComponent";
 import ResponseAlert from "@/components/ui/responseAlert";
+import { SunsetBackground } from "@/components/utils/lightBackground";
 
 export function LoginPage() {
     const { onSubmit, handleSubmit, register, alert, showAlert } = LoginPageService()
 
     return(
-        <div className="w-full relative min-h-screen overflow-hidden flex items-center justify-center bg-main">
+        <div className="w-full relative min-h-screen overflow-hidden flex items-center justify-center">
             <DarkBackground />
+            <SunsetBackground />
             { showAlert && <ResponseAlert message={alert.message} color={alert.color} /> }
             <div className="w-4/5 p-5 md:w-1/2 lg:w-1/3 flex flex-col items-center bg-card box-border lg:p-10 rounded-lg z-10">
                 <div className="w-full flex justify-end">

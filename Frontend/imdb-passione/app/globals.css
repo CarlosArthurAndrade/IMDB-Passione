@@ -42,11 +42,17 @@ html, body {
 :root {
   --main-background: #C5D3EC;
   --bg-card: #FFFFFF;
-  --card-border: #8FA9E8;
-  --bg-input: #E4EAF7;
-  --full-border: #7891C9;
-  --bg-login-button: linear-gradient(135deg, #2C4A8C 0%, #4A6FC2 100%);
-  --login-link: #16213D;
+  --card-border: none;
+  --full-border: #E8B8CC;
+  --bg-login-button: linear-gradient(90deg, #C25E82 0%, #E08BA6 100%);
+  --h1-login: #4A2E3D;
+  --login-placeholder: #96677E;
+  --login-link: #C25E82;
+  --bg-input: #FBEAF0;
+  --search-bg: linear-gradient(135deg, #F5EBFF, #FCE9F5);
+  --search-border: rgba(196, 132, 252, 0.35);
+  --search-shadow: 0 2px 10px rgba(168, 85, 247, 0.15);
+  --search-border-focus: rgba(247, 85, 234, 0.5);
 }
 
 .dark {
@@ -58,6 +64,10 @@ html, body {
   --h1-login: #F5F3FF;
   --login-placeholder: #B8B3D9;
   --login-link: #C77DFF;
+  --search-bg: rgba(76, 29, 149, 0.25);
+  --search-border: rgba(168, 85, 247, 0.25);
+  --search-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+  --search-border-focus: rgba(192, 132, 252, 0.5);
 }
 
 .bg-main {
@@ -110,4 +120,16 @@ html, body {
 
 .bg-red-alert {
   background-color: #28151d;
+}
+
+.search-bar {
+  background: var(--search-bg);
+  border: 1px solid var(--search-border);
+  backdrop-filter: blur(8px); /* só faz diferença visível no tema escuro */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-bar:focus-within {
+  border-color: var(--search-border-focus);
+  box-shadow: var(--search-shadow);
 }

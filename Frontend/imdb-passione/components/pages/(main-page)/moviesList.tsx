@@ -1,14 +1,19 @@
 'use client'
 
 import MobileMovieCard from "@/components/ui/mobileMovieCard"
-import MoviePageService from "@/services/(main-page)/moviePageService"
+import SearchInput from "@/components/ui/searchInput"
+import ThemeToggle from "@/components/utils/themeToggle"
+import { MovieListPageProps } from "@/interfaces/ui/InputProps"
 
-export default function MoviesList() {
-    const { movies } = MoviePageService()
+export default function MoviesList({ movies, placeholder, searchCard }: MovieListPageProps) {
     return(
         <div className="w-full flex flex-col items-center justify-center mt-15">
-            <h1 className="text-xl">Listagem de filmes</h1>
-            <div className="flex flex-col w-full"> 
+            <div className="absolute top-10 right-7">
+                <ThemeToggle />
+            </div>
+            <h1 className="text-xl text-white/80">Catálogo de filmes</h1>
+            <SearchInput placeholder={placeholder} onChange={searchCard}/>
+            <div className="flex flex-col gap-8 px-4 lg:grid md:grid-cols-2 md:gap-1 md:w-3/4 w-full overflow-y-auto"> 
                 {movies.map(movie => 
                     <MobileMovieCard 
                         key={movie._id}
