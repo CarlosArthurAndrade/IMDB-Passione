@@ -6,6 +6,7 @@ dotenv.config({ quiet: true });
 export const collections: { 
    users?: mongoDB.Collection,
    movies?: mongoDB.Collection,
+   series?: mongoDB.Collection,
    reviews?: mongoDB.Collection,
    requests?: mongoDB.Collection,
    tokens?: mongoDB.Collection
@@ -33,4 +34,5 @@ export async function connectToDatabase () {
    collections.reviews = db.collection(process.env.REVIEWS_COLLECTION_NAME!);
    collections.requests = db.collection(process.env.REQUESTS_COLLECTION_NAME!);
    collections.tokens = db.collection(process.env.TOKENS_COLLECTION_NAME!);
+   collections.series = db.collection(process.env.SERIES_COLLECTION_NAME!);
 }
