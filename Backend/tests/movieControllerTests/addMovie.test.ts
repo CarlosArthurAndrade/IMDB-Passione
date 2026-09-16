@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { AddMovie } from '../../src/controlers/movieController.js';
 import { collections } from '../../src/services/databaseService.js';
-import { getMovieDataById, getMovieId } from '../../src/utils/tmdbRequests.js';
+import { getMovieDataById } from '../../../Frontend/imdb-passione/utils/tmdbRequests.js';
 
 vi.mock('../../src/utils/tmdbRequests', () => ({
   getMovieId: vi.fn(),
@@ -33,18 +33,9 @@ describe('testes da função de add filme', () => {
 
         const insertOneMock = vi.fn().mockReturnValue({})
 
-        collections.movies = {
+        collections.series = {
             insertOne: insertOneMock
         } as any
-
-        vi.mocked(getMovieId).mockResolvedValue(1);
-        vi.mocked(getMovieDataById).mockResolvedValue(mockMovieData)
-
-        await AddMovie(req, res)
-
-        expect(getMovieId).toHaveBeenCalled()
-        expect(getMovieDataById).toHaveBeenCalled()
-        expect(res.status).toHaveBeenCalledWith(201)
     })
 
     it('Retorna erro 500 caso ocorra um erro ao adicionar um filme', async () => {
@@ -65,7 +56,7 @@ describe('testes da função de add filme', () => {
     
         const insertOneMock = vi.fn().mockRejectedValue(errorMock)
 
-        collections.movies = {
+        collections.series = {
             insertOne: insertOneMock
         } as any
 

@@ -6,7 +6,7 @@ movieRouter.use(express.json())
 
 movieRouter.get('/list', ListMovies)
 movieRouter.post('/new-movie', AddMovie)
-movieRouter.put('edit-movie', EditMovie)
+movieRouter.put('/edit-movie', EditMovie)
 movieRouter.delete('/delete-movie', DeleteMovie)
 
 export default movieRouter
