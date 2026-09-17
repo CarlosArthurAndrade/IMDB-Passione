@@ -16,7 +16,7 @@ export interface TMDBSearchSerieItem {
     posterHorizontal: string
     posterVertical: string
     overview: string
-    releseDate: string
+    first_air_date: string
     tags: TagItem[]
     in_production: boolean
     status: string
