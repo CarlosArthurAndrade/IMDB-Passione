@@ -5,8 +5,8 @@ const serieRouter = Router()
 serieRouter.use(express.json())
 
 serieRouter.get('/list', ListSeries)
-serieRouter.post('/new-movie', AddSerie)
-serieRouter.put('/edit-movie', EditSerie)
-serieRouter.delete('/delete-movie', DeleteSerie)
+serieRouter.post('/new-serie', AddSerie)
+serieRouter.put('/edit-serie', EditSerie)
+serieRouter.delete('/delete-serie', DeleteSerie)
 
 export default serieRouter
