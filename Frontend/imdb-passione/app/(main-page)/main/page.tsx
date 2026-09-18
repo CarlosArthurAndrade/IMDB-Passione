@@ -1,5 +1,4 @@
 'use client';
-
 import MoviesList from "@/components/pages/(main-page)/moviesList";
 import Profile from "@/components/pages/(main-page)/profile";
 import SeriesList from "@/components/pages/(main-page)/seriesList";

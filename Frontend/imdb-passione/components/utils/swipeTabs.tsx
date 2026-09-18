@@ -6,14 +6,7 @@ import { LuClapperboard } from 'react-icons/lu';
 import { GoPerson } from 'react-icons/go';
 import { FiTv } from 'react-icons/fi';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-
-const TAB_ICONS = [
-  <LuClapperboard size={20} key="filmes" />,
-  <FiTv size={20} key="series" />,
-  <GoPerson size={20} key="perfil" />,
-];
-
-const TAB_LABELS = ['filmes', 'séries', 'perfil'];
+import { useTheme } from 'next-themes';
 
 const variants = {
   enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -21,13 +14,29 @@ const variants = {
   exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 }),
 };
 
+function useIsLargeScreen() {
+  const [isLarge, setIsLarge] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 1024px)');
+    setIsLarge(mql.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsLarge(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  return isLarge;}
+
 export default function SwipeTabs({
   screens,
 }: {
   screens: ReactNode[];
 }) {
+  const { resolvedTheme, setTheme } = useTheme();
   const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
   const [isDragging, setIsDragging] = useState(false);
+  const isLargeScreen = useIsLargeScreen();
   const clickBlockTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
@@ -45,6 +54,14 @@ export default function SwipeTabs({
   if (total === 0) {
     return null;
   }
+
+  const TAB_ICONS = [
+    <LuClapperboard size={20} key="filmes"/>,
+    <FiTv size={20} key="series"/>,
+    <GoPerson size={20} key="perfil"/>,
+  ];
+
+  const TAB_LABELS = ['filmes', 'séries', 'perfil'];
 
   const threshold = 80;
 
@@ -67,6 +84,8 @@ export default function SwipeTabs({
   }
 
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    if (isLargeScreen) return;
+
     if (isControlTarget(event.target)) {
       pointerStart.current = null;
       return;
@@ -82,6 +101,8 @@ export default function SwipeTabs({
   }
 
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    if (isLargeScreen) return;
+
     if (event.pointerType === 'touch') {
       return;
     }
@@ -104,6 +125,8 @@ export default function SwipeTabs({
   }
 
   function handlePointerUp(event: React.PointerEvent<HTMLDivElement>) {
+    if (isLargeScreen) return;
+
     if (event.pointerType === 'touch') {
       return;
     }
@@ -126,6 +149,8 @@ export default function SwipeTabs({
   }
 
   function handleTouchStart(event: React.TouchEvent<HTMLDivElement>) {
+    if (isLargeScreen) return;
+
     if (isControlTarget(event.target)) {
       touchStart.current = null;
       return;
@@ -137,6 +162,8 @@ export default function SwipeTabs({
   }
 
   function handleTouchMove(event: React.TouchEvent<HTMLDivElement>) {
+    if (isLargeScreen) return;
+
     const start = touchStart.current;
     const touch = event.touches[0];
 
@@ -150,7 +177,6 @@ export default function SwipeTabs({
       Math.abs(deltaX) >= threshold && Math.abs(deltaX) > Math.abs(deltaY);
 
     if (isHorizontalSwipe) {
-      event.preventDefault();
       pointerSwipeTriggered.current = true;
       paginate(deltaX < 0 ? 1 : -1);
     }
@@ -211,14 +237,14 @@ export default function SwipeTabs({
           animate="center"
           exit="exit"
           transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
-          drag="x"
+          drag={isLargeScreen ? false : 'x'}
           dragDirectionLock
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           className="absolute inset-0 h-full w-full touch-pan-y pb-12"
-          style={{ touchAction: 'pan-y' }}
+          style={{ touchAction: isLargeScreen ? 'auto' : 'pan-y' }}
         >
           {/* o pointer-events só desliga aqui dentro — o motion.div em si
               continua recebendo o gesto normalmente, já que o pointer
@@ -232,7 +258,7 @@ export default function SwipeTabs({
       </AnimatePresence>
 
       {/* Barra de abas mobile */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 flex justify-around items-center h-12 bg-black/90 backdrop-blur pb-[env(safe-area-inset-bottom)]">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-20 flex justify-around items-center h-12 bg-black/90 backdrop-blur pb-[env(safe-area-inset-bottom)]">
         {tabIcons.map((icon, i) => (
           <button
             key={i}
@@ -250,19 +276,19 @@ export default function SwipeTabs({
       <button
         onClick={() => paginate(-1)}
         aria-label={`Ir para ${tabLabels[prevIndex]}`}
-        className="hidden md:flex items-center gap-2 absolute left-4 top-1/2 -translate-y-1/2 pl-3 pr-4 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
+        className="hidden lg:flex items-center gap-2 absolute left-4 top-1/2 -translate-y-1/2 pl-3 pr-4 h-11 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors z-10"
       >
-        <IoIosArrowBack size={18} />
+        <IoIosArrowBack size={18}/>
         {tabIcons[prevIndex]}
       </button>
 
       <button
         onClick={() => paginate(1)}
         aria-label={`Ir para ${tabLabels[nextIndex]}`}
-        className="hidden md:flex items-center gap-2 absolute right-4 top-1/2 -translate-y-1/2 pl-4 pr-3 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
+        className="hidden lg:flex items-center gap-2 absolute right-4 top-1/2 -translate-y-1/2 pl-4 pr-3 h-11 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors z-10"
       >
         {tabIcons[nextIndex]}
-        <IoIosArrowForward size={18} />
+        <IoIosArrowForward size={18}/>
       </button>
     </div>
   );

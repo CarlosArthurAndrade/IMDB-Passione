@@ -1,4 +1,4 @@
-import { MobileMovieCardProps } from "@/interfaces/(main-page)/movieCardProps"
+import { MovieCardProps } from "@/interfaces/(main-page)/movieCardProps"
 import { AnimatePresence, motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
@@ -9,7 +9,7 @@ const cardVariants = {
   exit: { opacity: 0, y: -24 },
 };
 
-export default function MobileMovieCard({ _id, posterHorizontal, rating, year, title, isFirst }: MobileMovieCardProps) {
+export default function MovieCard({ _id, posterHorizontal, posterVertical, rating, year, title, isFirst, overview }: MovieCardProps) {
     const router = useRouter()
     return(
         <AnimatePresence>
@@ -21,7 +21,8 @@ export default function MobileMovieCard({ _id, posterHorizontal, rating, year, t
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className="w-full h-full flex flex-col items-center" onClick={() => router.push(`/movie-details/${_id}`)}>
                     <div className="w-full">
-                        <div className="w-full flex flex-col items-center">
+                        {/* Cards da listagem mobile e telas md */}
+                        <div className="w-full flex lg:hidden flex-col items-center">
                             <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
                                 
                                 <Image
@@ -47,6 +48,30 @@ export default function MobileMovieCard({ _id, posterHorizontal, rating, year, t
                                         <span>•</span>
                                         <span>{new Date(year).getFullYear()}</span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Cards da listagem lg e desktop */}
+                        <div className="lg:flex hidden bg-card rounded-lg h-[280px] overflow-hidden">
+                            <div className="relative aspect-[2/3] h-full flex-shrink-0">
+                                <Image
+                                    src={`https://image.tmdb.org/t/p/original${posterVertical}`}
+                                    alt={title}
+                                    fill
+                                    className="object-cover rounded-l-lg"
+                                    sizes="25vw"
+                                    loading="eager"
+                                />
+                            </div>
+                            <div className="flex flex-col justify-between box-border p-2 min-w-0">
+                                <div className="md:grid md:grid-cols-1 gap-4">
+                                    <p className="text-xl">{title}</p>
+                                    <p className="text-sm text-wrap line-clamp-4">{overview}</p>
+                                </div>
+                                <div className="w-full flex items-center gap-2 text-sm text-gray-200">
+                                    <span className="text-black dark:text-white">⭐ {rating}</span>
+                                    <span className="text-black dark:text-white">•</span>
+                                    <span className="text-black dark:text-white">{new Date(year).getFullYear()}</span>
                                 </div>
                             </div>
                         </div>

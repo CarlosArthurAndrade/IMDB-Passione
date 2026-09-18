@@ -1,18 +1,12 @@
-export interface MobileMovieCardProps {
+export interface MovieCardProps {
     title: string,
     posterHorizontal: string,
+    posterVertical: string,
     rating: number,
     year: string,
     _id: string,
-    isFirst: boolean
-}
-
-export interface MovieCardProps {
-    _id: string,
-    title: string,
-    posterVertical: string,
-    rating: number,
-    year: string
+    isFirst: boolean,
+    overview: string,
 }
 
 export interface TagItem {
