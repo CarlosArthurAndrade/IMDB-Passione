@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react"
-import { Movie } from "../(main-page)/movieCardProps"
+import { Movie, Serie } from "../(main-page)/mainPageInterfaces"
 
 export interface SearchCardInputProps {
     placeholder: string
@@ -9,5 +9,9 @@ export interface SearchCardInputProps {
 export interface MovieListPageProps {
     movies: Movie[], 
     searchCard: (event: ChangeEvent<HTMLInputElement>) => void,
-    placeholder: string 
+}
+
+export interface SerieListPageProps {
+    series: Serie[], 
+    searchCard: (event: ChangeEvent<HTMLInputElement>) => void,
 }

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { getData } from "../utils/httpRequests/httpRequests";
-import { Serie } from "@/interfaces/(main-page)/movieCardProps";
+import { Serie } from "@/interfaces/(main-page)/mainPageInterfaces";
 import { useRouter } from "next/navigation";
 
-export default function SeriePageService() {
+export default function SeriesPageService() {
     const [series, setSeries] = useState<Serie[]>([])
     const [search, setSearch] = useState("")
 
@@ -21,7 +21,7 @@ export default function SeriePageService() {
     }, [series, search])
 
 
-    const searchCard = (
+    const seriesSearchCard = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         setSearch(event.target.value)
@@ -30,7 +30,7 @@ export default function SeriePageService() {
     useEffect(() => {
         const token = localStorage.getItem('userId')
         const series = async () => {
-            const response = await getData<Serie[]>('https://imdb-passione-backend.vercel.app/movies/list', token!)
+            const response = await getData<Serie[]>('https://imdb-passione-backend.vercel.app/series/list', token!)
             if (response?.message === 'Token inválido') {
                 return router.push('/')
             } 
@@ -40,5 +40,5 @@ export default function SeriePageService() {
         series()
     }, [])
 
-    return({ filteredSeries, searchCard })
+    return({ filteredSeries, seriesSearchCard })
 }

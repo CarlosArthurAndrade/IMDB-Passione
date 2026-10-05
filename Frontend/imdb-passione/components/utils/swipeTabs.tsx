@@ -243,7 +243,7 @@ export default function SwipeTabs({
           dragElastic={0.2}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
-          className="absolute inset-0 h-full w-full touch-pan-y pb-12"
+          className="absolute inset-0 h-full w-full touch-pan-y"
           style={{ touchAction: isLargeScreen ? 'auto' : 'pan-y' }}
         >
           {/* o pointer-events só desliga aqui dentro — o motion.div em si

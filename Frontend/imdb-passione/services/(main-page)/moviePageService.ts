@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getData } from "../utils/httpRequests/httpRequests";
-import { Movie } from "@/interfaces/(main-page)/movieCardProps";
+import { Movie } from "@/interfaces/(main-page)/mainPageInterfaces";
 import { useRouter } from "next/navigation";
 
 export default function MoviePageService() {
@@ -21,7 +21,7 @@ export default function MoviePageService() {
     }, [movies, search])
 
 
-    const searchCard = (
+    const moviesSearchCard = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         setSearch(event.target.value)
@@ -40,5 +40,5 @@ export default function MoviePageService() {
         getMovies()
     }, [])
 
-    return({ filteredMovies, searchCard })
+    return({ filteredMovies, moviesSearchCard })
 }

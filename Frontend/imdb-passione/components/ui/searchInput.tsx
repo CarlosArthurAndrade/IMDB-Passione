@@ -18,11 +18,14 @@ export default function SearchInput({ placeholder, onChange }: SearchCardInputPr
     }
     
     return (
-        <div className="flex search-bar w-[95%] md:w-full rounded-xl px-4 my-5 box-border">
-            <button className="" disabled>
-                <IoSearchOutline className="" />
-            </button>
-            <input className="w-full p-2 outline-none" placeholder={placeholder} onChange={onChange}/>
+        <div className="search-bar flex w-full max-w-2xl items-center gap-2 rounded-xl px-4 my-5 box-border">
+            <IoSearchOutline className="shrink-0 text-lg opacity-60" aria-hidden />
+            <input
+                type="search"
+                className="w-full bg-transparent p-2 outline-none"
+                placeholder={placeholder}
+                onChange={onChange}
+            />
         </div>
     );
 }

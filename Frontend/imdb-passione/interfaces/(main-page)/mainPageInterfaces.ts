@@ -9,6 +9,19 @@ export interface MovieCardProps {
     overview: string,
 }
 
+export interface SerieCardProps {
+    name: string,
+    posterHorizontal: string,
+    posterVertical: string,
+    rating: number,
+    year: string,
+    _id: string,
+    isFirst: boolean,
+    inProduction: string,
+    status: string,
+    overview: string,
+}
+
 export interface TagItem {
     name: string
 }

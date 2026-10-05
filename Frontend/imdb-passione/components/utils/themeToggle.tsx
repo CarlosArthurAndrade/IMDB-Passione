@@ -19,12 +19,18 @@ export default function ThemeToggle() {
     return <div className="w-5 h-5" />;
   }
 
+  function toggle() {
+    document.startViewTransition(() => {
+      setTheme(isDark ? "light" : "dark")
+    })
+  }
+
   const isDark = resolvedTheme === "dark";
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={toggle}
       aria-label={isDark ? "Ativar tema claro" : "Ativar tema escuro"}
       className="relative w-5 h-5 flex items-center justify-center"
     >
