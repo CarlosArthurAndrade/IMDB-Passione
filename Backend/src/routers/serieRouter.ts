@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { AddSerie, DeleteSerie, EditSerie, ListSeries } from "../controlers/seriesControllet.js";
+import { AddSerie, DeleteSerie, EditSerie, ListSeries } from "../controlers/seriesController.js";
 
 const serieRouter = Router()
 serieRouter.use(express.json())

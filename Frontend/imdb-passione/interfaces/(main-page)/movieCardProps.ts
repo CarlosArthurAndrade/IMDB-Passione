@@ -23,3 +23,16 @@ export interface Movie {
     releaseDate: string,
     tags: TagItem[]
 }
+
+export interface Serie {
+    _id: string,
+    posterHorizontal: string,
+    posterVertical: string,
+    name: string,
+    overview: string,
+    rating: number,
+    releaseDate: string,
+    inProduction: string,
+    status: string,
+    tags: TagItem[],
+}
