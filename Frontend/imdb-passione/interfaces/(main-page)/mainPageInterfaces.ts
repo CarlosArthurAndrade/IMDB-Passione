@@ -49,3 +49,20 @@ export interface Serie {
     status: string,
     tags: TagItem[],
 }
+
+export interface User {
+    username: string
+    email: string
+    password: string
+    description: string
+    image: string
+}
+
+export interface Review {
+    movieId: string
+    userId: string
+    title: string
+    text: string
+    rating: GLfloat
+    likes: number
+}

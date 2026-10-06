@@ -31,7 +31,7 @@ export default function SeriesPageService() {
         const token = localStorage.getItem('userId')
         const series = async () => {
             const response = await getData<Serie[]>('https://imdb-passione-backend.vercel.app/series/list', token!)
-            if (response?.message === 'Token inválido') {
+            if (response?.message === 'Token inválido' || response?.message === 'Não autenticado') {
                 return router.push('/')
             } 
             setSeries(response?.data ? response.data : [])

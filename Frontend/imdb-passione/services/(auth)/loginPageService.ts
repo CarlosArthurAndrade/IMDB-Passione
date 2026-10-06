@@ -1,12 +1,11 @@
 "use client";
 import { postData } from "@/services/utils/httpRequests/httpRequests";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import sendAlertMessage from "../utils/sendAlertMessage";
-import { HttpResponse } from "@/interfaces/utils/httpResponse";
 
 const loginSchema = z.object({
   email: z.email("Invalid email address"),

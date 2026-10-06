@@ -31,7 +31,7 @@ export default function MoviePageService() {
         const token = localStorage.getItem('userId')
         const getMovies = async () => {
             const response = await getData<Movie[]>('https://imdb-passione-backend.vercel.app/movies/list', token!)
-            if (response?.message === 'Token inválido') {
+            if (response?.message === 'Token inválido' || response?.message === 'Não autenticado') {
                 return router.push('/')
             } 
             setMovies(response?.data ? response.data : [])

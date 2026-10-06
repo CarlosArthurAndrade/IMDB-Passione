@@ -12,7 +12,8 @@ export const GetUser = async (req: Request, res: Response) => {
     try {
         const userId = (req as UserAuthRequest).user
         const user = await collections.users?.findOne({ _id: new ObjectId(userId) }) as User
-        res.status(Code.OK).send(new HttpResponse<User>(Code.OK, Status.OK, 'Usuário encontrado', user))
+        res.status(Code.OK).send(new HttpResponse<{ image: string, description: string, email: string, username: string}>(Code.OK, Status.OK, 'Usuário encontrado', 
+            { image: user.image, description: user.description, email: user.email, username: user.username }))
     } catch (error: unknown) {
         res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error))
     }
