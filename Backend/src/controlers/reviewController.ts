@@ -29,10 +29,12 @@ export const GetUserReviews = async (req: Request, res: Response) => {
 
 export const AddReview =  async (req: Request, res: Response) => {
     try {
+        const userId = (req as UserAuthRequest).user;
         const { title, username, movieName, text, rating } = req.body
         await collections.reviews?.insertOne({ 
             title,
             username,
+            userId,
             movieName,
             text,
             rating,

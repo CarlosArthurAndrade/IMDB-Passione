@@ -68,8 +68,8 @@ export interface User {
 }
 
 export interface Review {
-    movieId: string
-    userId: string
+    movieName: string
+    username: string
     title: string
     text: string
     rating: GLfloat
