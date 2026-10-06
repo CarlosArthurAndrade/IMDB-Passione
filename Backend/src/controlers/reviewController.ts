@@ -29,11 +29,11 @@ export const GetUserReviews = async (req: Request, res: Response) => {
 
 export const AddReview =  async (req: Request, res: Response) => {
     try {
-        const { title, userId, movieId, text, rating } = req.body
+        const { title, username, movieName, text, rating } = req.body
         await collections.reviews?.insertOne({ 
             title,
-            userId: new ObjectId(userId),
-            movieId,
+            username,
+            movieName,
             text,
             rating,
             likes: 0

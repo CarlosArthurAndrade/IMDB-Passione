@@ -250,7 +250,7 @@ export default function SwipeTabs({
               continua recebendo o gesto normalmente, já que o pointer
               já está "capturado" por ele desde o drag start */}
           <div style={{ pointerEvents: isDragging ? 'none' : 'auto' }} className="w-full h-full">
-            <div className="h-full min-h-0 overflow-y-auto overscroll-contain">
+            <div className="h-full min-h-0 overflow-y-auto overscroll-contain scrollbar-none">
               {screens[index]}
             </div>
           </div>

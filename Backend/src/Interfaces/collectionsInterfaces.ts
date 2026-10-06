@@ -33,8 +33,8 @@ export interface Serie extends WithId<Document> {
 }
 
 export interface Review extends WithId<Document> {
-    movieId: ObjectId
-    userId: ObjectId
+    movieName: ObjectId
+    username: ObjectId
     title: string
     text: string
     rating: GLfloat

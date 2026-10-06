@@ -22,6 +22,15 @@ export interface SerieCardProps {
     overview: string,
 }
 
+export interface ReviewCardProps {
+    movieName: string
+    username: string
+    title: string
+    text: string
+    rating: GLfloat
+    likes: number
+}
+
 export interface TagItem {
     name: string
 }
