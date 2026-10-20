@@ -29,6 +29,7 @@ export interface ReviewCardProps {
     text: string
     rating: GLfloat
     likes: number
+    createdAt: string
 }
 
 export interface TagItem {
@@ -68,10 +69,12 @@ export interface User {
 }
 
 export interface Review {
+    _id: string,
     movieName: string
     username: string
     title: string
     text: string
     rating: GLfloat
     likes: number
+    createdAt: string
 }

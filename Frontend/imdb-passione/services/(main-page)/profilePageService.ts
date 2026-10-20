@@ -26,5 +26,10 @@ export default function ProfilePageService() {
         GetUserData()
     }, [])
 
-    return { userData, userReviews }
+    function logout() {
+        localStorage.removeItem('userId')
+        router.push('/')
+    }
+
+    return { userData, userReviews, logout }
 }

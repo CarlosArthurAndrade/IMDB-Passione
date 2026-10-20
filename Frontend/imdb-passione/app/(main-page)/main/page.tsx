@@ -12,7 +12,7 @@ import SeriesPageService from "@/services/(main-page)/seriePageService";
 export default function MainPage() {
   const { filteredMovies, moviesSearchCard } = MoviePageService()
   const { filteredSeries, seriesSearchCard } = SeriesPageService()
-  const { userData, userReviews } = ProfilePageService()
+  const { userData, userReviews, logout } = ProfilePageService()
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden">
       <DarkBackground />
@@ -20,7 +20,7 @@ export default function MainPage() {
         <SwipeTabs screens={[
           <MoviesList key="filmes" movies={filteredMovies} searchCard={moviesSearchCard}/>, 
           <SeriesList key="series" series={filteredSeries} searchCard={seriesSearchCard}/>, 
-          <Profile key="perfil" user={userData!} reviews={userReviews}/>
+          <Profile key="perfil" user={userData!} reviews={userReviews} logout={logout}/>
           ]} 
         />
     </div>

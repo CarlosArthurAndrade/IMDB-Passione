@@ -15,6 +15,16 @@ export const ListSeries = async (_req: Request, res: Response) => {
     }
 }
 
+export const GetSerieById = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.body
+        const serie = await collections.series?.findOne({ _id: id }) as Serie
+        res.status(Code.OK).send(new HttpResponse<Serie>(Code.OK, Status.OK, 'Série encontrada', serie))
+    } catch (error: unknown) {
+        res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error));
+    }
+}
+
 export const AddSerie = async (req: Request, res: Response) => {
     try {
         const newMSerie = req.body

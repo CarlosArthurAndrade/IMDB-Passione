@@ -19,4 +19,5 @@ export interface SerieListPageProps {
 export interface ProfilePageProps {
     user: User,
     reviews: Review[]
+    logout: () => void
 }
