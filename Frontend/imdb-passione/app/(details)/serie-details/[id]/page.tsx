@@ -1,14 +1,13 @@
 'use client'
 import DarkBackground from "@/components/utils/darkBackground";
 import { SunsetBackground } from "@/components/utils/lightBackground";
+import { getData } from "@/services/utils/httpRequests/httpRequests";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function SerieDetails() {
     const id = useParams<{ id: string }>().id
-
-    console.log(id)
 
     return(
         <div className="box-border">
