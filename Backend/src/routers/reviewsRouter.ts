@@ -4,8 +4,8 @@ import { AddReview, DeleteReview, EditReview, GetMovieReviews, GetSerieReviews, 
 const reviewRouter = Router()
 reviewRouter.use(express.json())
 
-reviewRouter.get('/movie-reviews', GetMovieReviews)
-reviewRouter.get('/serie-reviews', GetSerieReviews)
+reviewRouter.post('/movie-reviews', GetMovieReviews)
+reviewRouter.post('/serie-reviews', GetSerieReviews)
 reviewRouter.get('/user-reviews', GetUserReviews)
 reviewRouter.post('/new-review', AddReview)
 reviewRouter.put('edit-review', EditReview)

@@ -18,11 +18,15 @@ export default function SerieDetails() {
     useEffect(() => {
         const token = window.localStorage.getItem("userId")
         const getSerie = async () => {
-        const serie = await postData<Serie>('https://imdb-passione-backend.vercel.app/series/serie-by-id', { id }, token!)
-        setSerie(serie?.data)
+        const serieDetaisResponse = await postData<Serie>('https://imdb-passione-backend.vercel.app/series/serie-by-id', { id }, token!)
+        const serieReviewsResponse = await postData<Review[]>('https://imdb-passione-backend.vercel.app/reviews/serie-reviews', { serieId: id }, token!)
+        setSerie(serieDetaisResponse?.data)
+        setReviews(serieReviewsResponse?.data)
         }
         getSerie()
     }, [])
+
+    console.log(reviews)
 
     return(
         serie && (

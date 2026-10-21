@@ -23,8 +23,10 @@ export interface SerieCardProps {
 }
 
 export interface ReviewCardProps {
-    movieName: string
+    showName: string
     username: string
+    serieId?: string
+    movieId?: string
     profile: boolean
     text: string
     rating: GLfloat
