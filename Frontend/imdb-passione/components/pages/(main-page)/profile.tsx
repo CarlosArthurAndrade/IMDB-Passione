@@ -1,6 +1,6 @@
 'use client'
 
-import ProfileReviewCard from "@/components/ui/profileReviewCard"
+import ProfileReviewCard from "@/components/ui/reviewCard"
 import ThemeToggle from "@/components/utils/themeToggle"
 import { ProfilePageProps } from "@/interfaces/ui/InputProps"
 import { motion } from "framer-motion"
@@ -55,7 +55,7 @@ export default function Profile({ user, reviews, logout }: ProfilePageProps) {
                     reviews.map((review, index) => 
                     <ProfileReviewCard
                         key={index}
-                        title={review.title}
+                        profile={true}
                         movieName={review.movieName}
                         text={review.text}
                         rating={review.rating}

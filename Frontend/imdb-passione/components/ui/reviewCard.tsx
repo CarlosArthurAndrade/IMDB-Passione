@@ -7,7 +7,7 @@ export default function ProfileReviewCard(review: ReviewCardProps) {
                 <div className="flex items-center gap-3">
                     <div>
                         <p className="font-medium text-neutral-900 dark:text-white">
-                            {review.title}
+                            {review.profile ? review.movieName : review.username }
                         </p>
                         <p className="text-xs text-neutral-500 dark:text-white/50">
                             {review.createdAt}

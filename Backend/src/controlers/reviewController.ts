@@ -1,7 +1,7 @@
 import type { Response, Request } from "express";
 import type UserAuthRequest from "../Interfaces/utils.js";
 import { collections } from "../services/databaseService.js";
-import type { Review } from "../Interfaces/collectionsInterfaces.js";
+import type { Review, Serie } from "../Interfaces/collectionsInterfaces.js";
 import { ObjectId } from "mongodb";
 import { Code } from "../enums/code.enum.js";
 import { HttpResponse } from "../domains/httpResponse.js";
@@ -12,6 +12,16 @@ export const GetMovieReviews = async (req: Request, res: Response) => {
         const { movieId } = req.body
         const movieReviews = await collections.reviews?.find({ movieId: new ObjectId(movieId) }).toArray() as Review[]
         res.status(Code.OK).send(new HttpResponse<Review[]>(Code.OK, Status.OK, 'Reviews do filme encontradas', movieReviews))
+    } catch (error: unknown) {
+        res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error))
+    }
+}
+
+export const GetSerieReviews = async (req: Request, res: Response) => {
+    try {
+        const { serieId } = req.body
+        const serieReviews = await collections.reviews?.find({ serieId: new ObjectId(serieId) }).toArray() as Serie[]
+        res.status(Code.OK).send(new HttpResponse<Serie[]>(Code.OK, Status.OK, 'Reviews do filme encontradas', serieReviews))
     } catch (error: unknown) {
         res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error))
     }

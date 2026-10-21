@@ -25,7 +25,7 @@ export interface SerieCardProps {
 export interface ReviewCardProps {
     movieName: string
     username: string
-    title: string
+    profile: boolean
     text: string
     rating: GLfloat
     likes: number
