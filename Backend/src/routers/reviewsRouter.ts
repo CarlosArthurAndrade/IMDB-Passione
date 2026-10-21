@@ -1,10 +1,11 @@
 import express, { Router } from "express";
-import { AddReview, DeleteReview, EditReview, GetMovieReviews, GetUserReviews } from "../controlers/reviewController.js";
+import { AddReview, DeleteReview, EditReview, GetMovieReviews, GetSerieReviews, GetUserReviews } from "../controlers/reviewController.js";
 
 const reviewRouter = Router()
 reviewRouter.use(express.json())
 
 reviewRouter.get('/movie-reviews', GetMovieReviews)
+reviewRouter.get('/serie-reviews', GetSerieReviews)
 reviewRouter.get('/user-reviews', GetUserReviews)
 reviewRouter.post('/new-review', AddReview)
 reviewRouter.put('edit-review', EditReview)
