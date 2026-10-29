@@ -1,3 +1,4 @@
+"use client"
 import SerieDetailsPage from "@/components/(details)/serieDetailsPage";
 import SerieDetailsPageService from "@/services/(details)/serieDetaisPageService";
 
