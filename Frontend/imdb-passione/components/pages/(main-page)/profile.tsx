@@ -56,7 +56,7 @@ export default function Profile({ user, reviews, logout }: ProfilePageProps) {
                     <ProfileReviewCard
                         key={index}
                         profile={true}
-                        movieName={review.movieName}
+                        showName={review.showName}
                         text={review.text}
                         rating={review.rating}
                         likes={0} 

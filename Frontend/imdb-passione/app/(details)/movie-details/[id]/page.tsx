@@ -1,5 +1,3 @@
-'use client'
-
 import MovieDetailsPage from "@/components/(details)/movieDetailsPage"
 import MovieDetailsPageService from "@/services/(details)/movieDetailsPageService"
 

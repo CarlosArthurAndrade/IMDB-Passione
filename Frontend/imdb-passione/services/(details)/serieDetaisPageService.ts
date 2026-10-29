@@ -1,3 +1,4 @@
+"use client"
 import { Serie, Review } from "@/interfaces/(main-page)/mainPageInterfaces"
 import { useParams } from "next/navigation"
 import { useState, useEffect } from "react"

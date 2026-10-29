@@ -1,3 +1,4 @@
+"use client"
 import { Movie, Review } from "@/interfaces/(main-page)/mainPageInterfaces";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
