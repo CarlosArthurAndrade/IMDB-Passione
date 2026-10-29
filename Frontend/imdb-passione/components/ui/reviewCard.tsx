@@ -2,7 +2,7 @@ import { ReviewCardProps } from "@/interfaces/(main-page)/mainPageInterfaces";
 
 export default function ProfileReviewCard(review: ReviewCardProps) {
     return (
-        <article className="w-full sm:max-w-2xl lg:max-w-4xl rounded-2xl border border-white/60 bg-white/60 p-4 shadow-lg shadow-orange-900/10 backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:shadow-black/30 sm:p-5">
+        <article className="w-full rounded-2xl border border-white/60 bg-white/60 p-4 shadow-lg shadow-orange-900/10 backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:shadow-black/30 sm:p-5">
             <header className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
                     <div>

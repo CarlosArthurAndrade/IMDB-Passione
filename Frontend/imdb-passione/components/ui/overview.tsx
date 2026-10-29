@@ -32,7 +32,7 @@ export default function Overview({ text }: { text: string }) {
     : COLLAPSED_HEIGHT;
 
   return (
-    <div className="w-full max-w-prose px-4 pt-3">
+    <div className="w-full px-4 pt-3">
       <motion.div
         initial={{ height: COLLAPSED_HEIGHT }}
         animate={{ height: targetHeight }}
@@ -49,7 +49,7 @@ export default function Overview({ text }: { text: string }) {
             : undefined
         }
       >
-        <p ref={ref} className="text-sm leading-6 text-black dark:text-white/75 text-pretty">
+        <p ref={ref} className="text-sm md:text-md leading-6 text-black dark:text-white/75 text-pretty">
           {text}
         </p>
       </motion.div>

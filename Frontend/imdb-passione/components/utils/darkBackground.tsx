@@ -18,7 +18,7 @@ export default function DarkBackground() {
     return(
         <div
         aria-hidden
-        className="pointer-events-none inset-0 -z-10 overflow-hidden absolute inset-0 z-0 dark:block hidden"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden hidden dark:block"
         style={{
           backgroundImage: `
             radial-gradient(circle at 15% 20%, rgba(123, 47, 247, 0.28), transparent 45%),

@@ -9,7 +9,17 @@ import { Code } from "../enums/code.enum.js";
 export const ListMovies = async (_req: Request, res: Response) => {
     try {
         const moviesList = await collections.movies?.find().toArray() as Movie[]
-        res.status(Code.OK).send(new HttpResponse<Movie[]>(Code.OK, Status.OK, 'Usuário encontrado', moviesList))
+        res.status(Code.OK).send(new HttpResponse<Movie[]>(Code.OK, Status.OK, 'Filmes encontrados', moviesList))
+    } catch (error: unknown) {
+        res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error));
+    }
+}
+
+export const GetMovieById = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.body
+        const movies = await collections.movies?.findOne({ _id: new ObjectId(id)}) as Movie
+        res.status(Code.OK).send(new HttpResponse<Movie>(Code.OK, Status.OK, 'Filme encontrado', movies))
     } catch (error: unknown) {
         res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error));
     }

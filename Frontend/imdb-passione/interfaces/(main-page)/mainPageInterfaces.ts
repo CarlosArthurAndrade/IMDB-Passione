@@ -58,6 +58,7 @@ export interface Serie {
     rating: number,
     releaseDate: string,
     inProduction: string,
+    numberOfSeasons: number,
     status: string,
     tags: TagItem[],
 }
@@ -72,7 +73,7 @@ export interface User {
 
 export interface Review {
     _id: string,
-    movieName: string
+    showName: string
     username: string
     title: string
     text: string

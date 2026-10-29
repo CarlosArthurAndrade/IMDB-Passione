@@ -20,8 +20,8 @@ export const GetMovieReviews = async (req: Request, res: Response) => {
 export const GetSerieReviews = async (req: Request, res: Response) => {
     try {
         const { serieId } = req.body
-        const serieReviews = await collections.reviews?.find({ serieId: new ObjectId(serieId) }).toArray() as Serie[]
-        res.status(Code.OK).send(new HttpResponse<Serie[]>(Code.OK, Status.OK, 'Reviews do filme encontradas', serieReviews))
+        const serieReviews = await collections.reviews?.find({ serieId: new ObjectId(serieId) }).toArray() as Review[]
+        res.status(Code.OK).send(new HttpResponse<Review[]>(Code.OK, Status.OK, 'Reviews do filme encontradas', serieReviews))
     } catch (error: unknown) {
         res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error))
     }
