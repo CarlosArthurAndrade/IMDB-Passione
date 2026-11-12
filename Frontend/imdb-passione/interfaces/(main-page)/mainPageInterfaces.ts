@@ -46,7 +46,7 @@ export interface Movie {
     overview: string,
     rating: number,
     releaseDate: string,
-    tags: TagItem[]
+    genres: TagItem[]
 }
 
 export interface Serie {

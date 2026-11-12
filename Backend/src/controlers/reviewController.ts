@@ -1,7 +1,7 @@
 import type { Response, Request } from "express";
 import type UserAuthRequest from "../Interfaces/utils.js";
 import { collections } from "../services/databaseService.js";
-import type { Review, Serie } from "../Interfaces/collectionsInterfaces.js";
+import type { Review, Serie, User } from "../Interfaces/collectionsInterfaces.js";
 import { ObjectId } from "mongodb";
 import { Code } from "../enums/code.enum.js";
 import { HttpResponse } from "../domains/httpResponse.js";
@@ -40,10 +40,10 @@ export const GetUserReviews = async (req: Request, res: Response) => {
 export const AddReview =  async (req: Request, res: Response) => {
     try {
         const userId = (req as UserAuthRequest).user;
-        const { title, username, movieName, text, rating } = req.body
+        const user = await collections.users?.findOne<User>({ _id: new ObjectId(userId)}, { projection: { username: 1, _id: 0 }})
+        const { movieName, text, rating } = req.body
         await collections.reviews?.insertOne({ 
-            title,
-            username,
+            username: user!.username,
             userId,
             movieName,
             text,

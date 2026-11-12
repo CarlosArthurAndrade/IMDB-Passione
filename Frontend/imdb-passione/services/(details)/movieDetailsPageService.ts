@@ -6,8 +6,23 @@ import { postData } from "../utils/httpRequests/httpRequests";
 
 export default function MovieDetailsPageService() {
     const [movie, setMovie] = useState<Movie>()
+    const [isOpen, setOpen] = useState<boolean>(false)
     const [reviews, setReviews] = useState<Review[]>()
     const id = useParams<{ id: string }>().id
+
+    const onClose = () => {
+        setOpen(false)
+    }
+
+    const onConfirm = async (text: string, rating: number) => {
+        const token = window.localStorage.getItem("userId")
+        const newReview = {
+            movieName: movie?.title,
+            text,
+            rating,
+        }
+        await postData('https://imdb-passione-backend.vercel.app/reviews/new-review', newReview, token!)
+    }
 
     useEffect(() => {
         const token = window.localStorage.getItem("userId")
@@ -20,5 +35,5 @@ export default function MovieDetailsPageService() {
     getMovie()
     }, [])
 
-    return { movie, reviews }
+    return { movie, reviews, onClose, onConfirm, isOpen, setOpen }
 }

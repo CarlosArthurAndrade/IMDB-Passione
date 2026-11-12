@@ -7,8 +7,20 @@ import ThemeToggle from "@/components/utils/themeToggle";
 import { Movie, Review } from "@/interfaces/(main-page)/mainPageInterfaces";
 import Image from "next/image";
 import Link from "next/link";
+import ReviewModal from "../ui/reviewModal";
+import EmptyReviews from "../ui/emptyReviews";
 
-export default function MovieDetailsPage({ movie, reviews }: { movie: Movie, reviews: Review[] }) {
+interface MovieDetailsPageProps { 
+    movie: Movie, 
+    reviews: Review[] ,
+    isOpen: boolean,
+    setOpen: (boolean: boolean) => void,
+    onClose: () => void,
+    onConfirm: (text: string, rating: number) => void
+}
+
+export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onConfirm, setOpen }: MovieDetailsPageProps) {
+    const rating = reviews?.length ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length : 0
     return(
             movie && (
             <div className="relative isolate min-h-screen box-border">
@@ -16,6 +28,7 @@ export default function MovieDetailsPage({ movie, reviews }: { movie: Movie, rev
                 <SunsetBackground />
                 {/* Div das telas mobile */}
                 <div className="w-full relative lg:hidden">
+                    { isOpen && <ReviewModal isOpen={isOpen} onClose={onClose} onConfirm={onConfirm} />}
                     <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[500px] overflow-hidden">
                         {movie && (
                             <Image
@@ -44,16 +57,27 @@ export default function MovieDetailsPage({ movie, reviews }: { movie: Movie, rev
                     <div className="flex flex-wrap items-center gap-2 px-4 pt-3 text-sm text-zinc-300">
                         <span className="flex items-center md:text-lg gap-1 font-semibold text-black dark:text-white">
                             <span className="text-yellow-400 md:text-lg">★</span>
-                            {movie.rating.toFixed(1)}
+                            {rating.toFixed(1)}
                         </span>
-                        <span className="text-black dark:text-white md:text-lg">{movie?.releaseDate.slice(0, 4)}</span>
-                        {/* <span className="text-black dark:text-white md:text-lg">•</span>
-                        <span className="text-black dark:text-white md:text-lg">{movie.}</span> */}
+                        <span className="text-black dark:text-white md:text-lg">{new Date(movie?.releaseDate).getFullYear()}</span>
+                    </div>
+                    <div className="mt-2 pl-4 flex flex-wrap gap-1.5">
+                        {movie.genres.map((tag) => (
+                            <span
+                                key={tag.name}
+                                className="rounded-full border border-purple-400/30 bg-purple-500/15 px-2.5 py-0.5 text-xs md:text-sm text-purple-900 dark:text-purple-200 backdrop-blur-sm"
+                            >
+                                {tag.name}
+                            </span>
+                        ))}
                     </div>
                     <Overview text={movie.overview}/>
-                    <div className="w-full box-border px-4 py-6">
+                    <div className="flex justify-center items-end px-4 mt-10">
+                        <h2 className="text-xl font-semibold text-white">Reviews</h2>
+                    </div>
+                    <div className="w-full box-border px-4 py-4">
                         {
-                            reviews && (
+                            reviews.length > 0 ? (
                                 reviews.map((review, index) => 
                                 <ProfileReviewCard 
                                 key={index}
@@ -65,12 +89,21 @@ export default function MovieDetailsPage({ movie, reviews }: { movie: Movie, rev
                                 likes={review.likes} 
                                 createdAt={review.createdAt} 
                             />)
-                            )
+                            ) : <EmptyReviews />
                         }
+                    </div>
+                    <div className="p-4 border-box w-full">
+                        <button 
+                            className="w-full flex justify-center items-center bg-login-button p-2 rounded-md" 
+                            onClick={() => setOpen(true)}
+                        >
+                            Escreva sua review
+                        </button>
                     </div>
                 </div>
                 {/* Div das telas desktop */}
                 <div className="hidden lg:block relative min-h-screen w-full">
+                    { isOpen && <ReviewModal isOpen={isOpen} onClose={onClose} onConfirm={onConfirm} />}
                     <div className="relative hidden h-[50vh] w-full lg:block">
                         {movie && movie?.posterHorizontal && (
                         <Image
@@ -112,17 +145,34 @@ export default function MovieDetailsPage({ movie, reviews }: { movie: Movie, rev
                                     <span className="text-yellow-400 md:text-lg">★</span>
                                     {movie.rating.toFixed(1)}
                                 </span>
-                                <span className="text-black dark:text-white md:text-lg">{movie?.releaseDate.slice(0, 4)}</span>
-                                <span className="text-black dark:text-white md:text-lg">•</span>
-                                <span className="text-black dark:text-white md:text-lg">2 temporadas</span>
+                                <span className="text-black dark:text-white md:text-lg">{new Date(movie?.releaseDate).getFullYear()}</span>
+                            </div>
+                            <div className="mt-2 lg:mb-2 flex flex-wrap gap-1.5">
+                                {movie.genres.map((tag) => (
+                                    <span
+                                        key={tag.name}
+                                        className="rounded-full border border-purple-400/30 bg-purple-500/15 px-2.5 py-0.5 text-xs md:text-sm text-purple-900 dark:text-purple-200 backdrop-blur-sm"
+                                    >
+                                        {tag.name}
+                                    </span>
+                                ))}
                             </div>
                             <p className="text-sm md:text-md leading-6 text-black dark:text-white/75 text-pretty">{movie.overview}</p>
                         </div>
                     </div>
-                    <div className="w-full flex box-border p-4 mt-10 max-w-9/10 justify-self-center">
+                    <div className="flex items-end justify-between max-w-9/10 justify-self-center w-full px-4 mt-15">
+                        <h1 className="text-2xl font-semibold text-white">Reviews</h1>
+                        <button
+                            className="flex justify-center items-center bg-login-button p-2 rounded-md"
+                            onClick={() => setOpen(true)}
+                        >
+                            Escreva sua review
+                        </button>
+                    </div>
+                    <div className="w-full flex box-border p-4 max-w-9/10 justify-self-center">
                             {
-                            reviews && (
-                                reviews.map((review, index) => 
+                                reviews.length > 0 ? (
+                                    reviews.map((review, index) => 
                                     <ProfileReviewCard 
                                     key={index}
                                     showName={review.showName} 
@@ -133,7 +183,7 @@ export default function MovieDetailsPage({ movie, reviews }: { movie: Movie, rev
                                     likes={review.likes} 
                                     createdAt={review.createdAt} 
                                 />)
-                                )
+                                ) : <EmptyReviews />
                             }
                     </div>
                 </div>

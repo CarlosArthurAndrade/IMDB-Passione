@@ -6,8 +6,17 @@ import { postData } from "../utils/httpRequests/httpRequests"
 
 export default function SerieDetailsPageService() {
     const [serie, setSerie] = useState<Serie>()
+    const [isOpen, setOpen] = useState<boolean>(false)
     const [reviews, setReviews] = useState<Review[]>()
     const id = useParams<{ id: string }>().id
+
+    const onClose = () => {
+        setOpen(false)
+    }
+
+    const onConfirm = (text: string) => {
+        console.log(text)
+    }
 
     useEffect(() => {
         const token = window.localStorage.getItem("userId")
@@ -20,5 +29,5 @@ export default function SerieDetailsPageService() {
         getSerie()
     }, [])
 
-    return { serie, reviews }
+    return { serie, reviews, isOpen, onClose, onConfirm, setOpen }
 }
