@@ -41,14 +41,9 @@ export const AddReview =  async (req: Request, res: Response) => {
     try {
         const userId = (req as UserAuthRequest).user;
         const user = await collections.users?.findOne<User>({ _id: new ObjectId(userId)}, { projection: { username: 1, _id: 0 }})
-        const { movieName, text, rating } = req.body
         await collections.reviews?.insertOne({ 
             username: user!.username,
-            userId,
-            movieName,
-            text,
-            rating,
-            likes: 0
+            ...req.body
         })
         res.status(Code.CREATED).send(new HttpResponse(Code.CREATED, Status.CREATED, "Review Adicionada com sucesso!"))
     } catch (error: unknown) {

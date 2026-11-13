@@ -16,10 +16,12 @@ export default function MovieDetailsPageService() {
 
     const onConfirm = async (text: string, rating: number) => {
         const token = window.localStorage.getItem("userId")
-        const newReview = {
+        const newReview = { 
             movieName: movie?.title,
+            movieId: id,
             text,
             rating,
+            likes: 0
         }
         await postData('https://imdb-passione-backend.vercel.app/reviews/new-review', newReview, token!)
     }
