@@ -44,10 +44,12 @@ export const AddReview =  async (req: Request, res: Response) => {
         const user = await collections.users?.findOne<User>({ _id: new ObjectId(userId)}, { projection: { username: 1, _id: 0 }})
         await collections.reviews?.insertOne({ 
             username: user!.username,
-            showId: new ObjectId(showId),
-            showName,
+            userId,
             text,
-            rating
+            rating,
+            createdAt: new Date().toLocaleDateString('pt-BR'),
+            showName,
+            showId: new ObjectId(showId)
         })
         res.status(Code.CREATED).send(new HttpResponse(Code.CREATED, Status.CREATED, "Review Adicionada com sucesso!"))
     } catch (error: unknown) {

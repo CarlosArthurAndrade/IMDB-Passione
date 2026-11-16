@@ -16,7 +16,7 @@ export default function MovieDetailsPageService() {
 
     const fetchReviews = async () => {
     const token = window.localStorage.getItem("userId")
-    const res = await postData<Review[]>('https://imdb-passione-backend.vercel.app/reviews/movie-reviews', { movieId: id }, token!)
+    const res = await postData<Review[]>('https://imdb-passione-backend.vercel.app/reviews/movie-reviews', { showId: id }, token!)
     setReviews(res?.data)
 }
 

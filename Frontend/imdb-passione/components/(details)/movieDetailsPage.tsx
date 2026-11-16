@@ -75,7 +75,7 @@ export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onCo
                     <div className="flex justify-center items-end px-4 mt-10">
                         <h2 className="text-xl font-semibold text-white">Reviews</h2>
                     </div>
-                    <div className="w-full box-border px-4 py-4">
+                    <div className="w-full flex flex-col gap-4 box-border px-4 py-4">
                         {
                             reviews.length > 0 ? (
                                 reviews.map((review, index) => 
