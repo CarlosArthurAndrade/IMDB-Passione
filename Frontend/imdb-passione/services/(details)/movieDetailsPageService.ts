@@ -14,28 +14,37 @@ export default function MovieDetailsPageService() {
         setOpen(false)
     }
 
-    const onConfirm = async (text: string, rating: number) => {
-        const token = window.localStorage.getItem("userId")
-        const newReview = { 
-            movieName: movie?.title,
-            movieId: id,
-            text,
-            rating,
-            likes: 0
-        }
-        await postData('https://imdb-passione-backend.vercel.app/reviews/new-review', newReview, token!)
-    }
+    const fetchReviews = async () => {
+    const token = window.localStorage.getItem("userId")
+    const res = await postData<Review[]>('https://imdb-passione-backend.vercel.app/reviews/movie-reviews', { movieId: id }, token!)
+    setReviews(res?.data)
+}
 
-    useEffect(() => {
-        const token = window.localStorage.getItem("userId")
-        const getMovie = async () => {
-        const movieDetaisResponse = await postData<Movie>('https://imdb-passione-backend.vercel.app/movies/movie-by-id', { id }, token!)
-        const movieReviewsResponse = await postData<Review[]>('https://imdb-passione-backend.vercel.app/reviews/movie-reviews', { movieId: id }, token!)
-        setMovie(movieDetaisResponse?.data)
-        setReviews(movieReviewsResponse?.data)
+const onConfirm = async (text: string, rating: number) => {
+    const token = window.localStorage.getItem("userId")
+    const newReview = {
+        showName: movie?.title,
+        showId: id,
+        text,
+        rating,
+    }
+    const response = await postData('https://imdb-passione-backend.vercel.app/reviews/new-review', newReview, token!)
+
+    if (response) {
+        await fetchReviews()
+        setOpen(false)
+    }
+}
+
+useEffect(() => {
+    const token = window.localStorage.getItem("userId")
+    const getMovie = async () => {
+        const movieRes = await postData<Movie>('https://imdb-passione-backend.vercel.app/movies/movie-by-id', { id }, token!)
+        setMovie(movieRes?.data)
     }
     getMovie()
-    }, [])
+    fetchReviews()
+}, [])
 
     return { movie, reviews, onClose, onConfirm, isOpen, setOpen }
 }

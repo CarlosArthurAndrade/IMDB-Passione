@@ -9,8 +9,8 @@ import { Status } from "../enums/status.enum.js";
 
 export const GetMovieReviews = async (req: Request, res: Response) => {
     try {
-        const { movieId } = req.body
-        const movieReviews = await collections.reviews?.find({ movieId: new ObjectId(movieId) }).toArray() as Review[]
+        const { showId } = req.body
+        const movieReviews = await collections.reviews?.find({ showId: new ObjectId(showId) }).toArray() as Review[]
         res.status(Code.OK).send(new HttpResponse<Review[]>(Code.OK, Status.OK, 'Reviews do filme encontradas', movieReviews))
     } catch (error: unknown) {
         res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error))
@@ -19,8 +19,8 @@ export const GetMovieReviews = async (req: Request, res: Response) => {
 
 export const GetSerieReviews = async (req: Request, res: Response) => {
     try {
-        const { serieId } = req.body
-        const serieReviews = await collections.reviews?.find({ serieId: new ObjectId(serieId) }).toArray() as Review[]
+        const { showId } = req.body
+        const serieReviews = await collections.reviews?.find({ showId: new ObjectId(showId) }).toArray() as Review[]
         res.status(Code.OK).send(new HttpResponse<Review[]>(Code.OK, Status.OK, 'Reviews do filme encontradas', serieReviews))
     } catch (error: unknown) {
         res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'Ocorreu um erro', error))
@@ -40,10 +40,14 @@ export const GetUserReviews = async (req: Request, res: Response) => {
 export const AddReview =  async (req: Request, res: Response) => {
     try {
         const userId = (req as UserAuthRequest).user;
+        const { showId, text, rating, showName } = req.body
         const user = await collections.users?.findOne<User>({ _id: new ObjectId(userId)}, { projection: { username: 1, _id: 0 }})
         await collections.reviews?.insertOne({ 
             username: user!.username,
-            ...req.body
+            showId: new ObjectId(showId),
+            showName,
+            text,
+            rating
         })
         res.status(Code.CREATED).send(new HttpResponse(Code.CREATED, Status.CREATED, "Review Adicionada com sucesso!"))
     } catch (error: unknown) {
