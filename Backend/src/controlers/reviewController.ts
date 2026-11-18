@@ -59,13 +59,11 @@ export const AddReview =  async (req: Request, res: Response) => {
 
 export const EditReview =  async (req: Request, res: Response) => {
     try {
-        const { title, text, rating, reviewId } = req.body
+        const { text, rating, reviewId } = req.body
         await collections.reviews?.updateOne({ _id: new ObjectId(reviewId) }, {
             $set: { 
-            title,
             text,
             rating,
-            likes: 0
         }})
         res.status(Code.NO_CONTENT).send(new HttpResponse(Code.NO_CONTENT, Status.NO_CONTENT, "Review Modificada com sucesso!"))
     } catch (error: unknown) {

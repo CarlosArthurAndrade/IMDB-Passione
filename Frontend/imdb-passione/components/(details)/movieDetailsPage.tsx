@@ -7,19 +7,55 @@ import ThemeToggle from "@/components/utils/themeToggle";
 import { Movie, Review } from "@/interfaces/(main-page)/mainPageInterfaces";
 import Image from "next/image";
 import Link from "next/link";
-import ReviewModal from "../ui/reviewModal";
+import ReviewModal from "../ui/modals/reviewModal";
 import EmptyReviews from "../ui/emptyReviews";
+import DeleteReviewModal from "../ui/modals/deleteReviewModal";
+import EditReviewModal from "../ui/modals/editReviewModal";
 
 interface MovieDetailsPageProps { 
     movie: Movie, 
     reviews: Review[] ,
-    isOpen: boolean,
-    setOpen: (boolean: boolean) => void,
-    onClose: () => void,
-    onConfirm: (text: string, rating: number) => void
+    isOpenCreate: boolean,
+    isOpenDelete: boolean,
+    isOpenEdit: boolean,
+    setOpenCreate: (boolean: boolean) => void,
+    setOpenEdit: (boolean: boolean) => void,
+    setOpenDelete: (boolean: boolean) => void,
+    onCloseCreate: () => void,
+    onConfirmCreate: (text: string, rating: number) => void
+    onCloseEdit: () => void,
+    onConfirmEdit: (text: string, rating: number) => void
+    onCloseDelete: () => void,
+    onConfirmDelete: () => void,
+    initialReview: string,
+    initialRating: number,
+    setInitialReview: (text: string) =>  void,
+    setInitialRating: (rating: number) => void,
+    setSelectedReviewId: (reviewId: string) => void
 }
 
-export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onConfirm, setOpen }: MovieDetailsPageProps) {
+export default function MovieDetailsPage(
+    { 
+        movie, 
+        reviews, 
+        isOpenCreate, 
+        isOpenDelete,
+        isOpenEdit, 
+        onCloseCreate, 
+        onConfirmCreate,
+        onCloseEdit,
+        onConfirmEdit,
+        onCloseDelete,
+        onConfirmDelete,
+        setOpenCreate,
+        setOpenDelete,
+        setOpenEdit,
+        initialRating,
+        initialReview,
+        setInitialRating,
+        setInitialReview,
+        setSelectedReviewId
+    }: MovieDetailsPageProps) {
     const rating = reviews?.length ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length : 0
     return(
             movie && (
@@ -28,7 +64,9 @@ export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onCo
                 <SunsetBackground />
                 {/* Div das telas mobile */}
                 <div className="w-full relative lg:hidden">
-                    { isOpen && <ReviewModal isOpen={isOpen} onClose={onClose} onConfirm={onConfirm} />}
+                    { isOpenCreate && <ReviewModal isOpen={isOpenCreate} onClose={onCloseCreate} onConfirm={onConfirmCreate} />}
+                    { isOpenDelete && <DeleteReviewModal isOpen={isOpenDelete} onClose={onCloseDelete} onConfirm={onConfirmDelete}/>}
+                    { isOpenEdit && <EditReviewModal isOpen={isOpenEdit} onClose={onCloseEdit} onConfirm={onConfirmEdit} initialReview={initialReview} initialRating={initialRating}/>}
                     <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[500px] overflow-hidden">
                         {movie && (
                             <Image
@@ -87,7 +125,17 @@ export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onCo
                                 text={review.text} 
                                 rating={review.rating} 
                                 likes={review.likes} 
-                                createdAt={review.createdAt} 
+                                createdAt={review.createdAt}
+                                handleDelete={() => {
+                                    setSelectedReviewId(review._id)
+                                    setOpenDelete(true)
+                                }}
+                                handleEdit={() => {
+                                    setInitialRating(review.rating)
+                                    setInitialReview(review.text)
+                                    setSelectedReviewId(review._id)
+                                    setOpenEdit(true)
+                                }}
                             />)
                             ) : <EmptyReviews />
                         }
@@ -95,7 +143,7 @@ export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onCo
                     <div className="p-4 border-box w-full">
                         <button 
                             className="w-full flex justify-center items-center bg-login-button p-2 rounded-md" 
-                            onClick={() => setOpen(true)}
+                            onClick={() => setOpenCreate(true)}
                         >
                             Escreva sua review
                         </button>
@@ -103,7 +151,7 @@ export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onCo
                 </div>
                 {/* Div das telas desktop */}
                 <div className="hidden lg:block relative min-h-screen w-full">
-                    { isOpen && <ReviewModal isOpen={isOpen} onClose={onClose} onConfirm={onConfirm} />}
+                    { isOpenCreate && <ReviewModal isOpen={isOpenCreate} onClose={onCloseCreate} onConfirm={onConfirmCreate} />}
                     <div className="relative hidden h-[50vh] w-full lg:block">
                         {movie && movie?.posterHorizontal && (
                         <Image
@@ -164,12 +212,12 @@ export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onCo
                         <h1 className="text-2xl font-semibold text-white">Reviews</h1>
                         <button
                             className="flex justify-center items-center bg-login-button p-2 rounded-md"
-                            onClick={() => setOpen(true)}
+                            onClick={() => setOpenCreate(true)}
                         >
                             Escreva sua review
                         </button>
                     </div>
-                    <div className="w-full flex box-border p-4 max-w-9/10 justify-self-center">
+                    <div className="w-full grid grid-cols-2 gap-2 box-border p-4 max-w-9/10 justify-self-center">
                             {
                                 reviews.length > 0 ? (
                                     reviews.map((review, index) => 
@@ -181,7 +229,9 @@ export default function MovieDetailsPage({ movie, reviews, isOpen, onClose, onCo
                                     text={review.text} 
                                     rating={review.rating} 
                                     likes={review.likes} 
-                                    createdAt={review.createdAt} 
+                                    createdAt={review.createdAt}
+                                    handleDelete={() => {}}
+                                    handleEdit={() => {}}
                                 />)
                                 ) : <EmptyReviews />
                             }

@@ -8,8 +8,8 @@ reviewRouter.post('/movie-reviews', GetMovieReviews)
 reviewRouter.post('/serie-reviews', GetSerieReviews)
 reviewRouter.get('/user-reviews', GetUserReviews)
 reviewRouter.post('/new-review', AddReview)
-reviewRouter.put('edit-review', EditReview)
-reviewRouter.delete('delete-review', DeleteReview)
+reviewRouter.put('/edit-review', EditReview)
+reviewRouter.delete('/delete-review', DeleteReview)
 
 
 export default reviewRouter

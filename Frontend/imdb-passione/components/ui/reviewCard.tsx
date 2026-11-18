@@ -1,4 +1,5 @@
 import { ReviewCardProps } from "@/interfaces/(main-page)/mainPageInterfaces";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
 export default function ProfileReviewCard(review: ReviewCardProps) {
     return (
@@ -21,9 +22,33 @@ export default function ProfileReviewCard(review: ReviewCardProps) {
                 </span>
             </header>
 
-            <p className="mt-3 text-sm leading-relaxed text-neutral-700 dark:text-white/80 line-clamp-4">
-                {review.text}
-            </p>
+            <div className="mt-3 flex items-center justify-between gap-3">
+                <p className="flex-1 text-sm leading-relaxed text-neutral-700 dark:text-white/80 line-clamp-4">
+                    {review.text}
+                </p>
+
+                <div className="flex shrink-0 items-center gap-1.5">
+                    <button
+                        type="button"
+                        aria-label="Editar avaliação"
+                        title="Editar"
+                        onClick={() => review.handleEdit()}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white/60 text-neutral-500 transition-all duration-200 hover:scale-110 hover:border-purple-400 hover:bg-purple-500/10 hover:text-purple-500 dark:border-white/10 dark:bg-white/5 dark:text-white/60 dark:hover:border-purple-400/50 dark:hover:text-purple-300"
+                    >
+                        <FiEdit2 size={14} />
+                    </button>
+
+                    <button
+                        type="button"
+                        aria-label="Excluir avaliação"
+                        title="Excluir"
+                        onClick={() => review.handleDelete()}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white/60 text-neutral-500 transition-all duration-200 hover:scale-110 hover:border-red-400 hover:bg-red-500/10 hover:text-red-500 dark:border-white/10 dark:bg-white/5 dark:text-white/60 dark:hover:border-red-400/50 dark:hover:text-red-400"
+                    >
+                        <FiTrash2 size={14} />
+                    </button>
+                </div>
+            </div>
         </article>
     )
 }

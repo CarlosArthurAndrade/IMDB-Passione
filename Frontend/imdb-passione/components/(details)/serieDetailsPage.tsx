@@ -7,7 +7,7 @@ import ThemeToggle from "@/components/utils/themeToggle";
 import { Review, Serie } from "@/interfaces/(main-page)/mainPageInterfaces";
 import Image from "next/image";
 import Link from "next/link";
-import ReviewModal from "../ui/reviewModal";
+import ReviewModal from "../ui/modals/reviewModal";
 import EmptyReviews from "../ui/emptyReviews";
 
 interface SerieDetailsPageProps { 
@@ -172,7 +172,7 @@ export default function SerieDetailsPage({ serie, reviews, isOpen, onClose, onCo
                         Escreva sua review
                     </button>
                 </div>
-                <div className="w-full flex box-border p-4 max-w-9/10 justify-self-center">
+                <div className="w-full grid grid-cols-2 gap-2 box-border p-4 max-w-9/10 justify-self-center">
                     {
                         reviews.length > 0 ? (
                             reviews.map((review, index) => 

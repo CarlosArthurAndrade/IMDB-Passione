@@ -32,6 +32,8 @@ export interface ReviewCardProps {
     rating: GLfloat
     likes: number
     createdAt: string
+    handleEdit: () => void
+    handleDelete: () => void
 }
 
 export interface TagItem {
