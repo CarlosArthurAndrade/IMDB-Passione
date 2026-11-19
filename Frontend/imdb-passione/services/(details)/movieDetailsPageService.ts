@@ -38,21 +38,22 @@ export default function MovieDetailsPageService() {
     }
 
     const deleteReview = async () => {
-        const response = await deleteData('https://imdb-passione-backend.vercel.app/reviews/delete-review', { reviewId: selectedReviewId })
-
-        console.log(response?.message)
+        const token = window.localStorage.getItem("userId")
+        const response = await deleteData('https://imdb-passione-backend.vercel.app/reviews/delete-review', { reviewId: selectedReviewId }, token!)
 
         if(response) {
+            fetchReviews()
             setOpenDelete(false)
         }
     }
 
     const editReview = async (text: string, rating: number) => {
-        const body = { text: text, rating: rating, reviewId: selectedReviewId }
-        const response = await updateData('https://imdb-passione-backend.vercel.app/reviews/edit-review', body)
-        console.log(response?.message)
+        const token = window.localStorage.getItem("userId")
+        const body = { text, rating, reviewId: selectedReviewId }
+        const response = await updateData('https://imdb-passione-backend.vercel.app/reviews/edit-review', body, token!)
 
         if(response){
+            fetchReviews()
             setOpenEdit(false)
         }
     }

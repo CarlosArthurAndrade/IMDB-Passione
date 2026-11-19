@@ -4,22 +4,36 @@ import ProfileReviewCard from "@/components/ui/reviewCard";
 import DarkBackground from "@/components/utils/darkBackground";
 import { SunsetBackground } from "@/components/utils/lightBackground";
 import ThemeToggle from "@/components/utils/themeToggle";
-import { Review, Serie } from "@/interfaces/(main-page)/mainPageInterfaces";
 import Image from "next/image";
 import Link from "next/link";
 import ReviewModal from "../ui/modals/reviewModal";
 import EmptyReviews from "../ui/emptyReviews";
+import { SerieDetailsPageProps } from "@/interfaces/(main-page)/detailsPagesInterfaces";
+import DeleteReviewModal from "../ui/modals/deleteReviewModal";
+import EditReviewModal from "../ui/modals/editReviewModal";
 
-interface SerieDetailsPageProps { 
-    serie: Serie, 
-    reviews: Review[] ,
-    isOpen: boolean,
-    setOpen: (boolean: boolean) => void,
-    onClose: () => void,
-    onConfirm: (text: string) => void
-}
-
-export default function SerieDetailsPage({ serie, reviews, isOpen, onClose, onConfirm, setOpen }: SerieDetailsPageProps) {
+export default function SerieDetailsPage(
+    { 
+            serie, 
+            reviews, 
+            isOpenCreate, 
+            isOpenDelete,
+            isOpenEdit, 
+            onCloseCreate, 
+            onConfirmCreate,
+            onCloseEdit,
+            onConfirmEdit,
+            onCloseDelete,
+            onConfirmDelete,
+            setOpenCreate,
+            setOpenDelete,
+            setOpenEdit,
+            initialRating,
+            initialReview,
+            setInitialRating,
+            setInitialReview,
+            setSelectedReviewId
+        }: SerieDetailsPageProps) {
     const rating = reviews?.length ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length : 0
     return(
         serie && (
@@ -28,7 +42,9 @@ export default function SerieDetailsPage({ serie, reviews, isOpen, onClose, onCo
             <SunsetBackground />
             {/* Div das telas mobile */}
             <div className="w-full relative lg:hidden">
-                { isOpen && <ReviewModal isOpen={isOpen} onClose={onClose} onConfirm={onConfirm} />}
+                { isOpenCreate && <ReviewModal isOpen={isOpenCreate} onClose={onCloseCreate} onConfirm={onConfirmCreate} />}
+                { isOpenDelete && <DeleteReviewModal isOpen={isOpenDelete} onClose={onCloseDelete} onConfirm={onConfirmDelete}/>}
+                { isOpenEdit && <EditReviewModal isOpen={isOpenEdit} onClose={onCloseEdit} onConfirm={onConfirmEdit} initialReview={initialReview} initialRating={initialRating}/>}
                 <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[500px] overflow-hidden">
                     {serie && (
                         <Image
@@ -88,7 +104,17 @@ export default function SerieDetailsPage({ serie, reviews, isOpen, onClose, onCo
                             text={review.text} 
                             rating={review.rating} 
                             likes={review.likes} 
-                            createdAt={review.createdAt} 
+                            createdAt={review.createdAt}
+                            handleDelete={() => {
+                                setSelectedReviewId(review._id)
+                                setOpenDelete(true)
+                            }}
+                            handleEdit={() => {
+                                setInitialRating(review.rating)
+                                setInitialReview(review.text)
+                                setSelectedReviewId(review._id)
+                                setOpenEdit(true)
+                            }}
                         />)
                         ) : <EmptyReviews />
                     }
@@ -96,15 +122,17 @@ export default function SerieDetailsPage({ serie, reviews, isOpen, onClose, onCo
                 <div className="p-4 border-box w-full">
                     <button 
                         className="w-full flex justify-center items-center bg-login-button p-2 rounded-md" 
-                        onClick={() => setOpen(true)}
+                        onClick={() => setOpenCreate(true)}
                     >
                        Escreva sua review
                     </button>
                 </div>
             </div>
             {/* Div das telas desktop */}
-            <div className="hidden lg:block relative min-h-screen w-full">
-                { isOpen && <ReviewModal isOpen={isOpen} onClose={onClose} onConfirm={onConfirm} />}
+            <div className="lg:block relative min-h-screen w-full">
+                { isOpenCreate && <ReviewModal isOpen={isOpenCreate} onClose={onCloseCreate} onConfirm={onConfirmCreate} />}
+                { isOpenDelete && <DeleteReviewModal isOpen={isOpenDelete} onClose={onCloseDelete} onConfirm={onConfirmDelete}/>}
+                { isOpenEdit && <EditReviewModal isOpen={isOpenEdit} onClose={onCloseEdit} onConfirm={onConfirmEdit} initialReview={initialReview} initialRating={initialRating}/>}
                 <div className="relative hidden h-[50vh] w-full lg:block">
                     {serie && serie?.posterHorizontal && (
                     <Image
@@ -167,7 +195,7 @@ export default function SerieDetailsPage({ serie, reviews, isOpen, onClose, onCo
                     <h1 className="text-2xl font-semibold text-white">Reviews</h1>
                     <button
                         className="flex justify-center items-center bg-login-button p-2 rounded-md"
-                        onClick={() => setOpen(true)}
+                        onClick={() => setOpenCreate(true)}
                     >
                         Escreva sua review
                     </button>
@@ -184,7 +212,17 @@ export default function SerieDetailsPage({ serie, reviews, isOpen, onClose, onCo
                             text={review.text} 
                             rating={review.rating} 
                             likes={review.likes} 
-                            createdAt={review.createdAt} 
+                            createdAt={review.createdAt}
+                            handleDelete={() => {
+                                setSelectedReviewId(review._id)
+                                setOpenDelete(true)
+                            }}
+                            handleEdit={() => {
+                                setInitialRating(review.rating)
+                                setInitialReview(review.text)
+                                setSelectedReviewId(review._id)
+                                setOpenEdit(true)
+                            }}
                         />)
                         ) : <EmptyReviews />
                     }

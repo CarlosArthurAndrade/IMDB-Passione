@@ -47,7 +47,7 @@ export const AddReview =  async (req: Request, res: Response) => {
             userId,
             text,
             rating,
-            createdAt: new Date().toLocaleDateString('pt-BR'),
+            createdAt: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }),
             showName,
             showId: new ObjectId(showId)
         })
@@ -64,6 +64,7 @@ export const EditReview =  async (req: Request, res: Response) => {
             $set: { 
             text,
             rating,
+            createdAt: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
         }})
         res.status(Code.NO_CONTENT).send(new HttpResponse(Code.NO_CONTENT, Status.NO_CONTENT, "Review Modificada com sucesso!"))
     } catch (error: unknown) {
